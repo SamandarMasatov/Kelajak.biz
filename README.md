@@ -1,6 +1,6 @@
 # Kelajak.biz
 
-These are the codes of tasnim.uz. This site is made for Tasnim Technology Academy
+These are the codes of tasnim.uz. This site is made for Kelajak learning platforma
 
 npm install
 

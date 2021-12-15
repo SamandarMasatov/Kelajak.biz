@@ -1,0 +1,74 @@
+
+
+<div class="pt-3 pb-3 pl-3"><h4 >Testni  tahrirlash</h4></div>
+
+<div class="row" >
+    <div class="col-md-10 mt-3" >
+        <form method="POST"  action="<%=`/test/${result._id}?_method=PUT`%>" class="col-md-12">
+            
+            
+            <h6 style="font-weight: 600; font-size: 16px" class="mt-2 badge badge-warning">Savolni kiriting</h6>
+                <textarea  name="question"  class="form-control col"   cols="30" rows="10"><%= result.question  %> </textarea>
+
+
+            <h6 style="font-weight: 600; font-size: 16px" class="mt-2 badge badge-warning">Variantlarni kiriting</h6>
+
+            <div class="input-group mt-3" style="display: flex; flex-direction: column">
+                <label class="select_coll">A variant uchun javob</label>
+                <textarea  name="a" class="form-control col" rows="10"  cols="30"><%= result.options.a %></textarea>
+            </div>
+            <div class="input-group mt-3" style="display: flex; flex-direction: column">
+                <label class="select_coll">B variant uchun javob</label>
+                <textarea   name="b" class="form-control col" rows="10"  cols="30"><%= result.options.b %></textarea>
+            </div>
+            <div class="input-group mt-3" style="display: flex; flex-direction: column">
+                <label class="select_coll">C variant uchun javob</label>
+                <textarea  name="c" class="form-control col"  rows="10" cols="30"><%= result.options.c %></textarea>
+            </div>
+            <div class="input-group mt-3" style="display: flex; flex-direction: column">
+                <label class="select_coll">D variant uchun javob</label>
+                <textarea  name="d" class="form-control col" rows="10"  cols="30"><%= result.options.d %></textarea>
+            </div> 
+
+            <h6 style="font-weight: 600; font-size: 16px" class="mt-2 badge badge-warning">To'gri javobni kiriting</h6>
+
+            <div class="input-group mt-3" style="display: flex; flex-direction: column">
+                 <textarea name="answer" class="form-control col" rows="10"  cols="30"><%= result.answer %></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-primary col-md-5 mt-3">Saqlash</button>
+        </form>
+    </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+                if($("#elm1").length > 0){
+                    tinymce.init({
+                        selector: "textarea#elm1",
+                        theme: "modern",
+                        height:300,
+                        preview_styles: false,
+                    });
+                }
+            });
+            $(document).ready(function () {
+                if($("#elm2").length > 0){
+                    tinymce.init({
+                        selector: "textarea#elm2",
+                        theme: "modern",
+                        height:150,
+                    });
+                }
+            });
+</script>
+
+
+<!-- Dropzone js -->
+
+
+

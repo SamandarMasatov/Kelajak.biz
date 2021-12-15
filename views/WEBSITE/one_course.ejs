@@ -1,0 +1,406 @@
+<link href="/plugins/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
+
+<style>
+  .accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+.active, .accordion:hover {
+  background-color: #ccc; 
+}
+
+.panel {
+  padding: 0 18px;
+  display: none;
+  background-color: white;
+  overflow: hidden;
+}
+</style>
+<% if(infoCourse == "") {%> 
+
+	<div style="height: 70vh; display: flex; flex-direction: row; align-items: center; justify-content: center;">
+		<h4 style="text-align: center;" >Hozircha hech qanday ma'lumot qo'shilmagan. <br> Tez orada yangi malumotlar yuklanadi</h4>
+	</div>
+	
+
+<% } else { %>
+	
+	<div class="one_cours_gradient"> 
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7 pt-4">
+        <% for(let item of infoCourse) {%>
+        <h1><%= item._id[0].title %></h1>
+        <div class="loc">
+          <h2>Kurs haqida ma'lumot:</h2>
+        </div>
+
+        <div class="info">
+          <div class="rat">
+            <span>
+              <i class="fa fa-star gol"></i>
+              <i class="fa fa-star gol"></i>
+              <i class="fa fa-star gol"></i>
+              <i class="fa fa-star gol"></i>
+              <i class="fa fa-star"></i>
+            </span>
+            <h3><%= item._id[0].rating %></h3>
+          </div>
+          <h3>
+            <span class="author-one">Muallif:</span>
+            <span><%= item._id[0].author_name %> </span>
+          </h3>
+        </div>
+        <div class="info mt-3">
+          <h3>
+            <span class="author-one">Sotib olganlar soni: </span>
+            <span>
+              <i class="mdi mdi-download"></i> <%= item._id[0].moreSoldCourse
+              %></span
+            >
+          </h3>
+          <h3>
+            <span class="author-one">Ko'rib chiqilgan: </span>
+            <span
+              ><i class="mdi mdi-eye"></i> <%= item._id[0].moreSeenCourse
+              %></span
+            >
+          </h3>
+        </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+	</div>
+
+	<div class="what_learn">
+  		<div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="text">
+          <% for(let item of infoCourse) {%>
+          <h2>Batafsil ma’lumot</h2>
+          <p><%= item._id[0].description %></p>
+          <% } %>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="yozilish">
+          <% for(let item of infoCourse) {%>
+          <div class="img">
+            <img src="/uploads/course/<%= item._id[0].image %>" alt="" />
+          </div>
+          <div class="bottom">
+            <div class="sum" style="display: flex; flex-direction: column">
+				<% if(item._id[0].chegirma == 0) {%>
+					<label style="font-weight: 700;">Kurs narxi: <%= item._id[0].price %> so'm</label>
+			    <% } else if(item._id[0].chegirma > 0) {%> 
+                    <h4>Chegirma: <%= item._id[0].chegirma %> so'm</h4>
+                    <h5 class="mt-2">Kurs narxi: <%= item._id[0].prev_payment %> so'm</h5>
+			    <% } %> 
+            </div>
+            <div class="register">
+              <b>Sotib olish</b>
+            </div>
+            <div class="d-flex justify-content-center">
+              <a href="#">
+                <img src="img/ulash.png" alt="" />
+                Do'stlarga ulashish
+              </a>
+            </div>
+          </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  		</div>
+	</div>
+
+	<div class="row">
+  		<div class="col-md-12 p-5">
+    		<% for(let item of result) {%> 
+				<div class="row">
+			<div class="col-md-10 mt-1 " >
+				<button class="accordion" style="font-weight: 900; font-size: 18px;">Mavzu nomi: <%= item.name %> </button>
+		        <div class="panel mt-3">
+					<div class="column" >
+						<p class="badge badge-warning col-sm-2" style="font-weight: 700; font-size: 20px;" >Video darslar</p>
+						<% for(let key of item.VIDEO) {%>
+						<div class="mt-2" style="display: flex; flex-direction: row; justify-content: space-between; border-bottom: 1px solid black;">
+							<% if(key.status == "blocked") {%> 
+								<p style="font-size: 18px; font-weight: 800;"><i style="font-size: 18px; font-weight: 800;" class="icon-lock-closed  text-danger"></i></p>
+								<p  style="font-size: 18px; font-weight: 800;"><%= key.title %></p>
+								<p  style="font-size: 18px; font-weight: 800;"><%= key.video_time %></p>
+								<p  style="font-size: 18px; font-weight: 800;"><%= moment(key.date).format("DD-MM-YYYY") %></p>
+									    
+
+							<% } else if (key.status != "blocked"){%> 
+								<a style="font-size: 18px; font-weight: 800;" target="_blank" class="popup-vimeo mo-mb-2" href="/uploads/video/<%= key.video %>">
+									<i class="icon-lock-open  text-success"> Videoni ko'rish mumkin</i>
+								</a>
+								<p  style="font-size: 18px; font-weight: 800;"><%= key.title %></p>
+								<p  style="font-size: 18px; font-weight: 800;"><%= key.video_time %></p>
+								<p  style="font-size: 18px; font-weight: 800;"><%= moment(key.date).format("DD-MM-YYYY") %></p>
+
+							<% } %> 
+						</div>
+						<% } %> 
+					</div>
+					<div class="column mt-3">
+						<p class="badge badge-warning col-sm-2" style="font-weight: 700; font-size: 20px;" >Testlar</p>
+						<% for(let key of item.COLLECTION) {%>
+							<div class="mt-2" style="display: flex; flex-direction: row; justify-content: space-between; border-bottom: 1px solid black;">
+								<% if(key.status == "blocked") {%> 
+									<p style="font-size: 18px; font-weight: 800;"><i style="font-size: 18px; font-weight: 800;" class="icon-lock-closed  text-danger"></i></p>
+									<p  style="font-size: 18px; font-weight: 800;"><%= key.name %> </p>
+									<p  style="font-size: 18px; font-weight: 800;"><%= moment(key.date).format("DD-MM-YYYY") %></p>
+								<% } else if (key.status != "blocked"){%> 
+									<a style="font-size: 18px; font-weight: 800;" href="">
+										<i class="icon-lock-open  text-success"> Testga kirish</i>
+									</a>
+									<p  style="font-size: 18px; font-weight: 800;"><%= key.name %> </p>
+									<p  style="font-size: 18px; font-weight: 800;"><%= moment(key.date).format("DD-MM-YYYY") %></p>
+								<% } %> 
+							</div>
+							
+						    
+						<% } %>
+					</div>
+					<div class="column mt-3">
+						<p class="badge badge-warning col-sm-2" style="font-weight: 700; font-size: 20px;" >Qo'llanmalar</p>
+						<% for(let key of item.PDF) {%>
+							<div class="mt-2" style="display: flex; flex-direction: row; justify-content: space-between; border-bottom: 1px solid black;">
+								<% if(key.status == "blocked") {%> 
+									<p style="font-size: 18px; font-weight: 800;"><i style="font-size: 18px; font-weight: 800;" class="icon-lock-closed  text-danger"></i></p>
+									<p  style="font-size: 18px; font-weight: 800;"><%= key.title %></p>
+									<p  style="font-size: 18px; font-weight: 800;"><%= moment(key.date).format("DD-MM-YYYY") %></p>
+									
+
+								<% } else if (key.status != "blocked"){%> 
+									<a style="font-size: 18px; font-weight: 800;" target="_blank" class="popup-vimeo mo-mb-2" href="/uploads/video/<%= key.video %>">
+										<i class="icon-lock-open  text-success"> Qo'llanmani o'qish</i>
+									</a>
+									<p  style="font-size: 18px; font-weight: 800;"><%= key.title %></p>
+									<p  style="font-size: 18px; font-weight: 800;"><%= moment(key.date).format("DD-MM-YYYY") %></p>
+
+								<% } %>  
+							</div>
+						<% } %> 
+					</div>
+
+					<div class="column mt-3">
+						<p class="badge badge-warning col-sm-2" style="font-weight: 700; font-size: 20px;" >Audio darslar</p>
+						<% for(let key of item.AUDIO) {%>
+							<div class="mt-2" style="display: flex; flex-direction: row; justify-content: space-between; border-bottom: 1px solid black;">
+								<% if(key.status == "blocked") {%> 
+									<p style="font-size: 18px; font-weight: 800;"><i style="font-size: 18px; font-weight: 800;" class="icon-lock-closed  text-danger"></i></p>
+									<p  style="font-size: 18px; font-weight: 800;"><%= key.title %></p>
+									<p  style="font-size: 18px; font-weight: 800;"><%= moment(key.date).format("DD-MM-YYYY") %></p>
+									
+
+								<% } else if (key.status != "blocked"){%> 
+									<a style="font-size: 18px; font-weight: 800;" target="_blank" class="popup-vimeo mo-mb-2" href="/uploads/video/<%= key.video %>">
+										<i class="icon-lock-open  text-success"> Audiolarni eshitish</i>
+									</a>
+									<p  style="font-size: 18px; font-weight: 800;"><%= key.title %></p>
+									<p  style="font-size: 18px; font-weight: 800;"><%= moment(key.date).format("DD-MM-YYYY") %></p>
+
+								<% } %>  
+							</div>
+						<% } %> 
+					</div>
+		          
+		          
+		        </div>
+			</div>
+				</div>
+    		<% } %>
+  		</div>
+	</div>
+
+	
+    <div class="row mt-5 mb-5">
+	<div class="col-md-12 order-1 order-md-2">
+		<h3 class="p-3">Boshqa kurslar</h3>
+		<div class="tab_index_all row">
+			<div class="tab_con col-md-12" style="display: flex; flex-direction: row; justify-content: space-evenly; align-items: center; flex-wrap: wrap;">
+					
+					<nav class="active_nav row  col-md-3">
+						<div class="flex_cours">
+							<div class="row_cours ">
+								<div class="img">
+									<div class="green_hover"></div>
+									<div class="type"><b></b></div>
+									<img src="/website/img/bino.png" alt="">
+								</div>
+								<div class="text">
+									<h2 style="font-size: 18px;"><a href="/filter/filter_section_of_course/"></a></h2>
+								
+									<div class="rat">
+										<div class="stars">
+											<i class="fa fa-star marker"></i>
+											<i class="fa fa-star marker"></i>
+											<i class="fa fa-star marker"></i>
+											<i class="fa fa-star marker"></i>
+											<i class="fa fa-star"></i>
+										</div>
+										<b>4</b>
+									</div>
+									<div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;" >
+										<h6 style="font-size: 16px;">Sotib olingan: </h6> <i style="font-size: 12px;"  class="mdi mdi-download"> 3 </i>
+									</div>
+									<div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+										<h6 style="font-size: 16px;">Ko'rilgan</h6> <i  style="font-size: 12px;" class="mdi mdi-eye"> 2 </i>
+									</div>
+									<div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+										<h6 style="font-size: 16px;">Kurs narxi:</h6>  <i style="font-size: 12px;" class="mdi mdi-eye">500.000 so'm</i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</nav>
+
+					<nav class="active_nav row  col-md-3">
+						<div class="flex_cours">
+							<div class="row_cours ">
+								<div class="img">
+									<div class="green_hover"></div>
+									<div class="type"><b></b></div>
+									<img src="/website/img/bino.png" alt="">
+								</div>
+								<div class="text">
+									<h2 style="font-size: 18px;"><a href="/filter/filter_section_of_course/"></a></h2>
+								
+									<div class="rat">
+										<div class="stars">
+											<i class="fa fa-star marker"></i>
+											<i class="fa fa-star marker"></i>
+											<i class="fa fa-star marker"></i>
+											<i class="fa fa-star marker"></i>
+											<i class="fa fa-star"></i>
+										</div>
+										<b>4</b>
+									</div>
+									<div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;" >
+										<h6 style="font-size: 16px;">Sotib olingan: </h6> <i style="font-size: 12px;"  class="mdi mdi-download"> 3 </i>
+									</div>
+									<div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+										<h6 style="font-size: 16px;">Ko'rilgan</h6> <i  style="font-size: 12px;" class="mdi mdi-eye"> 2 </i>
+									</div>
+									<div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+										<h6 style="font-size: 16px;">Kurs narxi:</h6>  <i style="font-size: 12px;" class="mdi mdi-eye">500.000 so'm</i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</nav>
+
+					<nav class="active_nav row  col-md-3">
+						<div class="flex_cours">
+							<div class="row_cours ">
+								<div class="img">
+									<div class="green_hover"></div>
+									<div class="type"><b></b></div>
+									<img src="/website/img/bino.png" alt="">
+								</div>
+								<div class="text">
+									<h2 style="font-size: 18px;"><a href="/filter/filter_section_of_course/"></a></h2>
+								
+									<div class="rat">
+										<div class="stars">
+											<i class="fa fa-star marker"></i>
+											<i class="fa fa-star marker"></i>
+											<i class="fa fa-star marker"></i>
+											<i class="fa fa-star marker"></i>
+											<i class="fa fa-star"></i>
+										</div>
+										<b>4</b>
+									</div>
+									<div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;" >
+										<h6 style="font-size: 16px;">Sotib olingan: </h6> <i style="font-size: 12px;"  class="mdi mdi-download"> 3 </i>
+									</div>
+									<div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+										<h6 style="font-size: 16px;">Ko'rilgan</h6> <i  style="font-size: 12px;" class="mdi mdi-eye"> 2 </i>
+									</div>
+									<div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+										<h6 style="font-size: 16px;">Kurs narxi:</h6>  <i style="font-size: 12px;" class="mdi mdi-eye">500.000 so'm</i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</nav>
+
+					<nav class="active_nav row  col-md-3">
+						<div class="flex_cours">
+							<div class="row_cours ">
+								<div class="img">
+									<div class="green_hover"></div>
+									<div class="type"><b></b></div>
+									<img src="/website/img/bino.png" alt="">
+								</div>
+								<div class="text">
+									<h2 style="font-size: 18px;"><a href="/filter/filter_section_of_course/"></a></h2>
+								
+									<div class="rat">
+										<div class="stars">
+											<i class="fa fa-star marker"></i>
+											<i class="fa fa-star marker"></i>
+											<i class="fa fa-star marker"></i>
+											<i class="fa fa-star marker"></i>
+											<i class="fa fa-star"></i>
+										</div>
+										<b>4</b>
+									</div>
+									<div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;" >
+										<h6 style="font-size: 16px;">Sotib olingan: </h6> <i style="font-size: 12px;"  class="mdi mdi-download"> 3 </i>
+									</div>
+									<div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+										<h6 style="font-size: 16px;">Ko'rilgan</h6> <i  style="font-size: 12px;" class="mdi mdi-eye"> 2 </i>
+									</div>
+									<div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+										<h6 style="font-size: 16px;">Kurs narxi:</h6>  <i style="font-size: 12px;" class="mdi mdi-eye">500.000 so'm</i>
+									</div>
+								</div>
+							</div>
+						</div> 
+					</nav>
+				
+			</div>
+		</div>
+
+	</div>
+    </div>
+
+<% } %> 
+
+
+
+
+
+
+<script src="/plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script>
+	var acc = document.getElementsByClassName("accordion");
+	var i;
+	
+	for (i = 0; i < acc.length; i++) {
+	  acc[i].addEventListener("click", function() {
+		this.classList.toggle("active");
+		var panel = this.nextElementSibling;
+		if (panel.style.display === "block") {
+		  panel.style.display = "none";
+		} else {
+		  panel.style.display = "block";
+		}
+	  });
+	}
+</script>

@@ -1,0 +1,257 @@
+<style>
+  .file-upload {
+    background-color: #ffffff;
+    width: 600px;
+    margin: 0 auto;
+    padding: 10px;
+  }
+
+  .file-upload-btn {
+    width: 100%;
+    margin: 0;
+    color: #fff;
+    background: #30419b;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    border-bottom: 4px solid #30419b;
+    transition: all 0.2s ease;
+    outline: none;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .file-upload-btn:hover {
+    background: #30419b;
+    color: #ffffff;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .file-upload-btn:active {
+    border: 0;
+    transition: all 0.2s ease;
+  }
+
+  .file-upload-content {
+    display: none;
+    text-align: center;
+  }
+
+  .file-upload-input {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .image-upload-wrap {
+    margin-top: 20px;
+    border: 4px dashed #30419b;
+    position: relative;
+  }
+
+  .image-dropping,
+  .image-upload-wrap:hover {
+    background-color: #30419b;
+  }
+
+  .image-title-wrap {
+    padding: 0 15px 15px 15px;
+    color: #222;
+  }
+
+  .drag-text {
+    text-align: center;
+  }
+
+  .drag-text h3 {
+    font-weight: 100;
+    text-transform: uppercase;
+    color: #000;
+    padding: 60px 0;
+  }
+
+  .file-upload-image {
+    max-height: 300px;
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+  }
+
+  .remove-image {
+    width: 400px;
+    margin: 0;
+    color: rgb(0, 0, 0);
+    background: #30419b;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    border-bottom: 4px solid #30419b;
+    transition: all 0.2s ease;
+    outline: none;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .remove-image:hover {
+    background: #30419b;
+    color: #ffffff;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .remove-image:active {
+    border: 0;
+    transition: all 0.2s ease;
+  }
+
+  .card-body {
+    overflow-x: scroll;
+  }
+</style>
+
+
+<div class="row">
+  <div class="col-12">
+    <div style="
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      ">
+      <h4 class="m-3" style="font-weight: 700;">Barcha moderatorlar ro'yxati</h4>
+      <button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal"
+        data-target=".bs-example-modal-lg">
+        Moderator qo'shish
+      </button>
+    </div>
+
+    <div class="card m-b-30">
+      <div class="card-body">
+        <table id="datatable" class="table table-bordered text-center"
+          style="border-collapse: collapse; border-spacing: 0; width: 100%">
+          <thead>
+            <tr>
+
+              <th>Ism-familiyasi</th>
+              <th>Email</th>
+
+              <th style="width: 10%">Sozlamalar</th>
+            </tr>
+          </thead>
+
+          <tbody class="select_group">
+
+          </tbody>
+
+
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- end col -->
+</div>
+
+
+
+
+<div class="modal fade bs-example-modal-lg m-3" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title mt-0  width: 21%" id="myLargeModalLabel">Moderator yaratish</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="mb-3 ml-2 mr-2">
+          <label for="">Ism-familiyasi</label>
+          <input type="text" id="name" class="form-control" placeholder="Ism-familiyasi" />
+        </div>
+        <div class="mb-3 ml-2 mr-2">
+          <label for="">Email </label>
+          <input type="email" id="email" class="form-control" placeholder="Pochta manzili" />
+        </div>
+        <div class="mb-3 ml-2 mr-2">
+          <label for="">Parol </label>
+          <input type="password" id="password" class="form-control" placeholder="Parol" />
+        </div>
+        <div class="mb-3 ml-2 mr-2">
+          <input type="hidden" value="moderator" id="role" class="form-control" />
+        </div>
+
+        <button type="submit" id="createData" class="btn btn-primary col-md-5 mt-3 mb-3 ml-3">Saqlash</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/axios.min.js"></script>
+<script>
+
+
+  const createData = document.getElementById("createData")
+  createData.addEventListener("click", () => {
+
+    const name = document.getElementById("name")
+    const email = document.getElementById("email")
+    const password = document.getElementById("password")
+    const role = document.getElementById("role")
+
+
+    axios.post("/auth/register", {
+      name: name.value,
+      email: email.value,
+      password: password.value,
+      role: role.value,
+    })
+      .then(response => {
+        location.reload()
+        // console.log(response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  })
+
+
+
+  axios.get("/auth/all")
+    .then(async (res) => {
+      const result = res.data.result
+      console.log(result)
+      let select = $(".select_group");
+      await select.html("");
+      result.forEach((item) => {
+        select.append(
+          `<tr>
+              <td>${item.name}</td>
+              <td>${item.email}</td>
+              <td>
+                  <a onclick="deleted('${item._id}')"  type="button"  class="btn btn-outline-danger text-danger"><i class="fa fa-trash"></i></a>
+              </td>
+            </tr>
+          `
+        );
+      });
+    });
+
+  function deleted(delete_id) {
+    axios.delete(`/auth/${delete_id}`)
+      .then(res => {
+        location.reload()
+      })
+  }
+
+
+
+</script>

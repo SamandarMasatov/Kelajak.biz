@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,EAAE,CAAA;EACE,KAAK,EAAE,GAAG;CACX;;AACD,AAAA,EAAE,CAAA;EACA,KAAK,EAAE,GAAG;CACX;;AACD,AAAA,EAAE,CAAA;EACA,KAAK,EAAE,GAAG;CACX;;AACD,AAAA,EAAE,CAAA;EACA,KAAK,EAAE,GAAG;CACX",
+    "sources": [
+        "testbuy.scss"
+    ],
+    "names": [],
+    "file": "testbuy.css"
+}

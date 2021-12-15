@@ -1,0 +1,97 @@
+<div class="page-title-box">
+    <div class="row align-items-center">
+        <div class="col-sm-6">
+            <h4 class="page-title">Arizalar</h4>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card m-b-30">
+            <div class="card-body" style="overflow-x: scroll;">
+
+                <table id="datatable-buttons" 
+                    class="table table-striped table-bordered dt-responsive nowrap text-center"
+                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Universitet</th>
+                            <th>Yonalish</th>
+                            <th>Fayl</th>
+                            <th>Sana</th>
+
+                            <th style="width: 20%;">Sozlama</th>
+                        </tr>
+                    </thead>
+                    <tbody class="select_group">
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/axios.min.js"></script>
+<script>
+
+    axios.get("/ariza/all")
+        .then(async (res) => {
+            const result = res.data
+            console.log("asdasd", result)
+            let select = $(".select_group");
+            await select.html("");
+            result.forEach((item) => {
+                select.append(
+                    `<tr>
+                        <td>${item.universitet.name}</td>
+                        <td>${item.yonalish.name}</td>
+                        <td>
+                            <a class="popup-vimeo mo-mb-2"  href="/uploads/${item.file}">
+                                Arizani ko'rish
+                            </a>
+                        </td>
+                        <td>${ new Date(item.date).toLocaleString() }</td>
+                        <td>
+                            <a onclick="deleted('${item._id}')"  type="button"  class=" mt-1 btn btn-outline-danger text-danger">Delete</a>
+                            <a href="/uploads/${item.file}" download="w3logo"   class=" mt-1 btn btn-outline-dark text-dark">Download</i></a>
+                        </td>
+                        
+                    </tr>
+                    `
+                );
+
+                if (item.status = "Tekshirilmagan") {
+                    document.getElementById('apply').style.display = 'none'
+                    document.getElementById('not_apply').style.display = 'block'
+                } else {
+                    document.getElementById('apply').style.display = 'block'
+                    document.getElementById('not_apply').style.display = 'none'
+                }
+            });
+        });
+
+    
+
+    function deleted(ID) {
+        axios.delete(`/ariza/${ID}`)
+            .then(res => {
+                location.reload()
+            })
+    }
+
+
+
+
+
+
+
+
+
+</script>

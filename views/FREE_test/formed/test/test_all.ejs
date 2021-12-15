@@ -1,0 +1,72 @@
+<div class="row">
+    <div class="col-12 pt-2">
+      <div style=" display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+        <h4 class="m-3" style="font-weight: 700;">Testlar (Sinflashtirilgan)</h4>
+        <div>
+            <a class="btn btn-success waves-effect waves-light" href="/test_FORMED/create_page">Qo'shish</a>
+            <a class="btn btn-warning waves-effect waves-light" href="/admin/formed">Orqaga</a>
+        </div>
+      </div>
+      <div class="mt-2"></div>
+      <div class="card col-md-12 table-responsive">
+        <div class="card-body table-responsive">
+          <table
+            id="datatable"
+            class="table table-bordered text-center "
+            style="border-collapse: collapse; border-spacing: 0; width: 150%; flex-wrap: wrap;"
+          >
+            <thead>
+              <tr>
+                <th>Savollar</th>
+                <th>Mavzu</th>
+                <th>Sinf</th>
+                <th>Bo'lim</th>
+                <th>Fan</th>
+                <th style="width: 8%">Sana</th>
+                <th style="width: 8%">Sozlama</th>
+              </tr>
+            </thead>
+  
+            <tbody>
+              <% for(const item of result){%>
+              <tr>
+                <td style="font-weight: 700;"><%= item.question  %> </td>
+                <td><%= item.theme_FORMED.name  %> </td>
+                <td><%= item.form_FORMED.name  %> </td>
+                <td><%= item.unit_FORMED.name  %> </td>
+                <td><%= item.subject_ID.name  %> </td>
+                <td><%= moment(item.date).format("DD/MM/YYYY") %></td>
+                <td
+                style="
+                  display: flex;
+                  flex-direction: row;
+                  justify-content: space-around;
+                  align-items: center;
+                "
+              >
+                 
+                  <a class="btn btn-warning" href="<%=`/test_FORMED/${item._id}`%>">
+                    <i class="fas fa-cog"></i>
+                  </a>
+                  <form
+                    method="POST"
+                    class="hidden-r"
+                    action="<%=`/test_FORMED/${item._id}?_method=DELETE`%>"
+                  >
+                    <button type="submit" class="btn btn-danger">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </form>
+                </td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+

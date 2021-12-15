@@ -1,0 +1,194 @@
+<div class="profil_title">
+    <div class="container">
+      <div class="id_pupil"> 
+        <div class="left">
+          <img src="/website/img/profil.png" alt="" />
+        </div>
+        <div class="right">
+          <% if(!user) {%>
+          <h1>Foydalanuvchi</h1>
+          <h2>UID: 6516546</h2>
+          <% } else {%>
+  
+          <h1><%= user.name %></h1>
+          <h2>UID: <%= user.uid %></h2>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <% if(!user) {%>
+      <input style="display: none;" id="user_ID_Value" value="">
+  <%} else {%> 
+      <input style="display: none;" id="user_ID_Value" value="<%= user.name %>">
+  <% } %>     
+  
+  
+  <div class="new_center_info" style="height:90vh;" >
+      <div class="container">
+          <div class="row">
+              <div class="col-md-12 order-1 order-md-2">
+                  <h1 class="info_center">Sinfga oid barcha testlar</h1>
+                  <div class="tab_index_all">
+                      <ul>
+                          <li class="activ">Tanlash</li>
+                      </ul>
+                      <div class="tab_con">
+  
+                          <!-- fan -->
+                          <nav class="active_nav">
+                              <select class="form-select select-result"  value=""  id="changeFilterGroup"  >
+                                  <option style="font-weight: bold">Kerakli fanni tanlang</option>
+                                  <% for (const key of AllSubjects)  { %>
+                                  <option value="<%= key._id %>"><%= key.name %></option>
+                                  <% } %>
+                              </select>
+                          </nav>
+  
+                          <!-- bolim -->
+                          <nav class="active_nav">
+                              <select class="form-select select-result select_group"  value=""  id="changeFilterTheme" >
+                                  <option style="font-weight: bold">Kerakli bo'limni tanlang</option>
+                                  <option class="tema" value=""></option>
+                              </select>
+                          </nav>
+  
+                          
+                          <!-- sinflar -->
+                          <nav class="active_nav">
+                              <select id="Theme" class="form-select select-result select_group2" value="">
+                                  <option style="font-weight: bold">Kerakli sinfni tanlang</option>
+                              <option class="tema" value=""></option>
+                            </select>
+                          </nav>
+
+
+                          <!-- mavzular -->
+                          <nav class="active_nav">
+                              <select id="allthemes" class="form-select select-result select222222"  value="">
+                                    <option style="font-weight: bold">Kerakli mavzuni tanlang</option>
+                                    <option class="tema" value=""></option>
+                            </select>
+                          </nav>
+  
+  
+
+
+
+                          
+                        <nav class="active_nav">
+                                <div class="appentBTN">
+                                    
+
+                                </div>
+                        </nav>
+
+
+
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+  
+  <!-- <div id="alert2" class="alert2">
+      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+      <h6>Testni yechishdan oldin quyidagilani amalga oshiring !</h6> <br>
+      <p>1. Ro'yhatdan o'ting</p>
+      <p>2. "Kirish" tugmasi orqali profilingizga kiring</p>
+      <p>3. Istalgan turdagi testni yeching</p>
+    </div> -->
+  
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+  
+  <script>
+  
+  
+  
+  
+    //   fanning id si boyicha bolimlar chiqadi
+      const testAAA = document.getElementById("changeFilterGroup");
+      testAAA.addEventListener("change", () => {
+          axios.get(`/test_FORMED/filter/1/${testAAA.value}`).then(async (res) => {
+              const result = res.data
+              let select = $(".select_group");
+              await select.html("");
+              select.append(`<option style="font-weight: bold">Kerakli bo'limni tanlang</option>`);
+              result.forEach((item) => {select.append( ` <option class="tema" value="${item._id}">` +  item.name +"</option>" ) });
+  
+          });
+      });
+  
+  
+    //   bolimning id si boyiha sinflar chiqadi
+      const btnThemeGroup = document.getElementById("changeFilterTheme");
+      btnThemeGroup.addEventListener("change", () => {
+          axios.get(`/test_FORMED/filter/2/${btnThemeGroup.value}`)
+          .then(async (res) => {
+              const result = res.data
+              let select = $(".select_group2");
+              await select.html("");
+              select.append(`<option style="font-weight: bold">Kerakli sinfni tanlang</option>`);
+              result.forEach((item) => {
+              select.append(`<option class="tema" value="${item._id}">` + item.name + "</option>")});
+          });
+      });
+  
+
+
+    // SINFNING ID SI BOYICHA MAVZULAR CHIQADI 
+      const btnForms = document.getElementById("Theme");
+      btnForms.addEventListener("change", () => {
+          axios.get(`/test_FORMED/filter/3/${btnForms.value}`)
+          .then(async (res) => {
+              const result = res.data
+              let select = $(".select222222");
+              await select.html("");
+              select.append(`<option style="font-weight: bold">Kerakli mavzuni tanlang</option>`);
+              result.forEach((item) => {
+              select.append(`<option class="tema" value="${item._id}">` + item.name + "</option>")});
+
+              let urlTest = res.data[0]._id
+            console.log(urlTest)
+            // let urlId = urlTest.slice(22, urlTest.length);
+            appentBTN.append(`<a class="btn btn-success" href="/test_solution/${urlTest}">Testga kirish</a>`);
+          });
+      });
+  
+  
+  
+      
+      const Themes = document.getElementById("allthemes");
+      Themes.addEventListener("change", () => {
+
+        if(document.getElementById('user_ID_Value').value == "") {
+            alert(
+                `
+                Testni yechishdan oldin quyidagilani amalga oshiring !
+                1. Ro'yhatdan o'ting
+                2. "Kirish" tugmasi orqali profilingizga kiring
+                3. Istalgan turdagi testni yeching
+                `
+            )
+        }else {
+             let appentBTN = $(".appentBTN");
+            appentBTN.html("");
+            console.log(Themes.value)
+            appentBTN.append(`<a class="btn btn-success" href="/solution_test3/${Themes.value}">Testga kirish</a>`);
+           
+
+        }
+
+    });
+  
+      
+  
+  
+  
+  </script>
+  

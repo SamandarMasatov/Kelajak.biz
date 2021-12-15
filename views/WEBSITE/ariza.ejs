@@ -1,0 +1,134 @@
+<style>
+    .badge {
+        display: none;
+    }
+</style>
+
+<div class="row mt-5 pt-5">
+    <div class="col-md-10 offset-1 mt-5">
+
+        <h3 id="univer_name"></h3>
+        <span id="error" class="badge bg-danger font-16">Hurmatli foydalanuvchi hamma malumotlarni to'liq
+            kiritishingizni so'raymiz</span>
+        <span id="success" class="badge bg-success font-16">Ariza muvaffaqoyatli jo'natildi</span>
+        <form class="was-validated">
+           
+
+
+            <div class="mb-3">
+                <label class="form-check-label mb-2 mt-4" for="validationFormCheck1">Arizangizni yuboring </label>
+                <input id="file_ariza" type="file" class="form-control" aria-label="file example" required>
+                <div class="invalid-feedback">Faylni yuklashingiz kerak</div>
+            </div>
+            <div class="row">
+                <label class="form-check-label mb-2 mt-4" for="validationFormCheck1">Yo'nalishlarni tanlang </label>
+                <div class="col-md-8" id="yonalish">
+
+
+                </div>
+            </div>
+            <div class="form-check mb-3 mt-5">
+                <input type="checkbox" class="form-check-input" id="validationFormCheck1" required>
+                <label class="form-check-label" for="validationFormCheck1">Barchasi haqida tanishib chiqdim</label>
+                <div class="invalid-feedback">Malumotni tasdiqlang</div>
+            </div>
+
+            <div class="mb-3">
+                <input type="hidden" class="form-control" id="yonalish_id">
+                <button class="btn btn-primary" type="button" id="sendData">Submit form</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/axios.min.js"></script>
+<script>
+    const pathUrl = location.pathname
+    const ID = pathUrl.slice(7)
+    axios.get(`/universitet/${ID}`)
+        .then(async (res) => {
+            const result = res.data.name
+            document.getElementById('univer_name').innerHTML = result + " universitetiga ariza topshirish"
+
+        });
+
+    axios.get(`/yonalish/filter/${ID}`)
+        .then(async (res) => {
+            const result = res.data
+            console.log(result)
+            let select = $("#yonalish");
+            await select.html("");
+            result.forEach((item, index, value) => {
+                select.append(
+                    `
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="radioname" value="${item._id}"   id="${index}">
+                            <label class="form-check-label" for="${index}">
+                                ${item.name} 
+                            </label>
+                        </div>
+                    `
+                );
+            });
+        });
+    window.addEventListener("load", function () {
+        let radios = document.getElementsByName('radioname');
+        radios.forEach(function (item) {
+            item.addEventListener("click", function () {
+                const yonalish_id = document.getElementById("yonalish_id").value = item.value
+            });
+        });
+    });
+
+
+    const sendData = document.getElementById('sendData')
+    sendData.addEventListener("click", () => {
+        let formData = new FormData();
+        const pathUrl = location.pathname
+
+        const universitet_id = pathUrl.slice(7)
+        const file = document.getElementById("file_ariza").files[0];
+        const yonalish_id = document.getElementById("yonalish_id").value
+        const error = document.getElementById("error")
+        const success = document.getElementById("success")
+
+
+        formData.append("file", file);
+        formData.append("universitet", universitet_id);
+        formData.append("yonalish", yonalish_id);
+        if (yonalish_id == "" || file == "") {
+            error.style.display = "block"
+            setTimeout(() => {
+                error.style.display = "none"
+            }, 5000)
+        } else {
+            axios({
+                url: "/ariza/add",
+                method: "POST",
+                data: formData,
+                headers: { 'Content-Type': 'multipart/form-data' }
+            })
+                .then(res => {
+                    // console.log(res.data.data)
+                    success.style.display = "block"
+                    error.style.display = "none"
+                    setTimeout(() => {
+                        location.reload()
+                    }, 3000)
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+
+
+    })
+
+
+
+</script>

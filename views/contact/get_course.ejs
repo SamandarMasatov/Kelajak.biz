@@ -1,0 +1,29 @@
+
+<div class="pt-3 pb-3 pl-3"><h3 >Kursga qo'shish</h3></div>
+
+<form action="/addCourse/add" method="POST"  >
+
+
+  <div class="col-md-6 p-4" style="border: 3px solid rgb(19, 0, 194); border-radius: 3px; width: 100%;">
+    <h5 class="pb-3">Foydalanuvchining ismi: <%= result.username.name %> </h5>
+      <div class="input-group mb-3">
+        <select
+          name="course_ID"
+          class="form-control"
+          value=""
+        >
+          <option style="font-weight: bold">Kerakli kursni tanlang</option>
+          <% for (let item of course) {%>
+          <option value="<%= item._id %>"><%= item.title %></option>
+          <% } %>
+        </select>
+      </div>
+      <div class="mb-3">
+        <input style="display: none;"  name="user_ID" class="form-control" value="<%= result.username._id %>"/>
+      </div>
+      
+      
+    
+      <button type="submit" class="btn btn-primary">Saqlash</button>
+  </div>
+</form>

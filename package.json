@@ -1,0 +1,37 @@
+{
+  "name": "kelajak-crm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server",
+    "dev": "node server"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@wiris/mathtype-ckeditor4": "^7.26.1",
+    "@wiris/mathtype-ckeditor5": "^7.26.1",
+    "@wiris/mathtype-tinymce4": "^7.26.2", 
+    "@wiris/mathtype-tinymce5": "^7.26.1",
+    "bcryptjs": "^2.4.3",
+    "connect-mongodb-session": "^2.4.1",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.17.2",
+    "graph-tinymce-plugin": "0.0.4",
+    "md5": "^2.3.0",
+    "method-override": "^3.0.0",
+    "moment": "^2.29.1",
+    "mongoose": "^5.12.14",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.2",
+    "node-cron": "^3.0.0",
+    "nodemon": "^2.0.7",
+    "sharp": "^0.28.3",
+    "shelljs": "^0.8.4"
+  }
+}

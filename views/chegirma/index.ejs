@@ -1,0 +1,107 @@
+<div class="row">
+    <div class="col-12">
+      <div style=" display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+        <h4 class="m-3" style="font-weight: 700;">Barcha chegirmalar ro'yhati</h4>
+        <button
+          type="button"
+          class="btn btn-primary waves-effect waves-light"
+          data-toggle="modal"
+          data-target=".bs-example-modal-lg"
+        >
+          Chegirma qo'shish
+        </button>
+      </div>
+  
+      
+      
+
+      <div class="card col-md-12 table-responsive">
+        <div class="card-body table-responsive">
+          <table
+            id="datatable"
+            class="table table-bordered text-center "
+            style="border-collapse: collapse; border-spacing: 0; width: 150%; flex-wrap: wrap;"
+          >
+            <thead>
+              <tr>
+                <th>Kurs nomi</th>
+                <th>Kurs chegirmasi</th>
+                <th style="width: 12%">Sana</th>
+                <th style="width: 8%">Sozlama</th>
+              </tr>
+            </thead>
+  
+            <tbody>
+              <% for(const item of result){%>
+              <tr>
+                <td><%= item.course_ID.title  %> </td>
+                <td><%= item.amount %> </td>
+                <td><%= moment(item.date).format("DD-MM-YYYY") %></td>
+                <td style=" display: flex; flex-direction: row; justify-content: space-around; align-items: center; ">
+                  <form method="POST" class="hidden-r" action="<%=`/chegirma/${item._id}?_method=DELETE`%>"  >
+                    <button type="submit" class="btn btn-danger">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </form>
+                </td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+
+
+    </div>
+    <!-- end col -->
+  </div>
+  
+  <div
+    class="modal fade bs-example-modal-lg"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myLargeModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title mt-0" id="myLargeModalLabel">Chegirma yaratish</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="/chegirma/create" method="POST">
+            
+
+            <div class="input-group mt-2 mb-3" style="display: flex; flex-direction: column">
+              <label for="" style="font-size: 16px">Kerakli kursni tanlang</label>
+              <select required name="course_ID" class="form-control" value="" >
+                  <option style="font-weight: bold">Tanlash ...</option>
+                  <% for (let item of subjects) {%>
+                  <option value="<%= item._id %>"><%= item.title %></option>
+                  <% } %>
+              </select>
+          </div>
+
+            <div class="mb-3">
+              <input type="number" name="amount" class="form-control" placeholder="Chegirma narxi" />
+            </div> 
+  
+           
+            <button type="submit" class="btn btn-primary">Saqlash</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  

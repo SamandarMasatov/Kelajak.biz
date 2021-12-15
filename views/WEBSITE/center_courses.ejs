@@ -1,0 +1,68 @@
+<div class="new_center_title">
+    <div class="container">
+        <a href="#" class="away"></a>
+        <div class="title">
+            <span>
+                <img src="/website/img/centers.png" alt="">
+            </span>
+            <h1>KELAJAK.BIZ</h1>
+        </div>
+    </div>
+</div>
+
+<div class="new_center_info mb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 order-1 order-md-2">
+               
+                <h1 class="info_center">Bizning kurslar</h1>
+                <div class="tab_index_all row">
+                    <div class="tab_con col-md-12" style="display: flex; flex-direction: row; justify-content: left; align-items: center;">
+                            <nav class="active_nav row">
+                                 
+                                <div class="flex_cours">
+                                    <% for(let item of result)  {%>
+                                    <div class="row_cours ">
+                                        <div class="img">
+                                            <div class="green_hover"></div>
+                                            <div class="type"><b><%= item.category_ID.name %> </b></div>
+                                            <img src="/uploads/course/<%= item.image %> " alt="">
+                                        </div>
+                                        <div class="text">
+                                            <h2 style="font-size: 18px;"><a href="/filter/filter_section_of_course/<%= item._id %>"><%= item.title %></a></h2>
+                                        
+                                            <div class="rat">
+                                                <div class="stars">
+                                                    <i class="fa fa-star marker"></i>
+                                                    <i class="fa fa-star marker"></i>
+                                                    <i class="fa fa-star marker"></i>
+                                                    <i class="fa fa-star marker"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
+                                                <b>4</b>
+                                            </div>
+                                            <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;" >
+                                                <h6 style="font-size: 14px;">Sotib olingan: </h6> <i style="font-size: 12px;"  class="mdi mdi-download"> <%= item.moreSoldCourse  %> </i>
+                                            </div>
+                                            <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+                                                <h6 style="font-size: 14px;">Ko'rilgan</h6> <i  style="font-size: 12px;" class="mdi mdi-eye"> <%= item.moreSeenCourse  %> </i>
+                                            </div>
+                                            <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+                                                <h6 style="font-size: 14px;">Kurs narxi:</h6>  <i style="font-size: 12px;" class="mdi mdi-eye"><%= item.price %> so'm</i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% } %> 
+                                </div>
+                              
+                            </nav>
+
+                       
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

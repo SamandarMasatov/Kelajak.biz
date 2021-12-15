@@ -1,0 +1,331 @@
+<style>
+    .file-upload {
+      background-color: #ffffff;
+      width: 600px;
+      margin: 0 auto;
+      padding: 10px;
+    }
+  
+    .file-upload-btn {
+      width: 100%;
+      margin: 0;
+      color: #fff;
+      background: #30419b;
+      border: none;
+      padding: 10px;
+      border-radius: 4px;
+      border-bottom: 4px solid #30419b;
+      transition: all 0.2s ease;
+      outline: none;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+  
+    .file-upload-btn:hover {
+      background: #30419b;
+      color: #ffffff;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+  
+    .file-upload-btn:active {
+      border: 0;
+      transition: all 0.2s ease;
+    }
+  
+    .file-upload-content {
+      display: none;
+      text-align: center;
+    }
+  
+    .file-upload-input {
+      position: absolute;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      outline: none;
+      opacity: 0;
+      cursor: pointer;
+    }
+  
+    .image-upload-wrap {
+      margin-top: 20px;
+      border: 4px dashed #30419b;
+      position: relative;
+    }
+  
+    .image-dropping,
+    .image-upload-wrap:hover {
+      background-color: #30419b;
+    }
+  
+    .image-title-wrap {
+      padding: 0 15px 15px 15px;
+      color: #222;
+    }
+  
+    .drag-text {
+      text-align: center;
+    }
+  
+    .drag-text h3 {
+      font-weight: 100;
+      text-transform: uppercase;
+      color: #000;
+      padding: 60px 0;
+    }
+  
+    .file-upload-image {
+      max-height: 300px;
+      max-width: 400px;
+      margin: auto;
+      padding: 20px;
+    }
+  
+    .remove-image {
+      width: 400px;
+      margin: 0;
+      color: rgb(0, 0, 0);
+      background: #30419b;
+      border: none;
+      padding: 10px;
+      border-radius: 4px;
+      border-bottom: 4px solid #30419b;
+      transition: all 0.2s ease;
+      outline: none;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+  
+    .remove-image:hover {
+      background: #30419b;
+      color: #ffffff;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+  
+    .remove-image:active {
+      border: 0;
+      transition: all 0.2s ease;
+    }
+
+    .card-body{
+      overflow-x: scroll;
+    }
+  </style>
+  
+  
+  <div class="row">
+    <div class="col-12">
+      <div
+        style="
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+        "
+      >
+        <h4 class="m-3" style="font-weight: 700;">Barcha kitoblar ro'yhati</h4>
+        <button
+          type="button"
+          class="btn btn-primary waves-effect waves-light"
+          data-toggle="modal"
+          data-target=".bs-example-modal-lg"
+        >
+          Qo'shish
+        </button>
+      </div>
+  
+      <div class="card m-b-30">
+        <div class="card-body">
+          <table id="datatable" class="table table-bordered text-center" style="border-collapse: collapse; border-spacing: 0; width: 100%" >
+            <thead>
+              <tr>
+                <th  style="width: 10%">Qo'llanma</th>
+                <th>Qo'llanma nomi </th>
+                <th>Kurs </th>
+                <th>Mavzu </th>
+                <th style="width: 13%">Sana</th>
+                <th style="width: 10%">Sozlamalar</th>
+              </tr>
+            </thead>
+  
+            <tbody>
+              <% for(let item of result) {%>
+              <tr>
+                <td>
+                    <a class="popup-vimeo mo-mb-2" href="/uploads/books/<%= item.pdf %> " controlsList="nodownload">
+                        <i class="fas fa-file-code font-30 text-danger"></i>
+                      </a>
+                </td>
+                <td><%= item.title %></td>
+                <td><%= item.course_ID.title %></td>
+                <td><%= item.section_ID.name %></td>
+                <td><%= moment(item.date).format("DD-MM-YYYY  hh:mm:ss") %></td>
+                <td style=" display: flex; flex-direction: row; justify-content: space-around; align-items: center;" >
+                 
+                  <a class="btn btn-warning" href="<%=`/document/${item._id}`%>">
+                    <i class="fas fa-cog"></i>
+                  </a>
+                  <form method="POST" class="hidden-r" action="<%=`/document/${item._id}?_method=DELETE`%>" >
+                    <button type="submit" class="btn btn-danger">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </form>
+                </td>
+              </tr>
+              <% } %>
+            </tbody>
+            
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- end col -->
+  </div>
+  
+  <div
+    class="modal fade bs-example-modal-lg"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myLargeModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title mt-0" id="myLargeModalLabel">Kurs yaratish</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="/document/add" method="POST"  ref='uploadForm' encType="multipart/form-data">
+
+
+            <div class="input-group mt-2" style="display: flex; flex-direction: column">
+                <label for="">Kerakli kursni tanlang</label>
+                <select name="course_ID" class="form-control" value="" id="filterTheme">
+                    <option style="font-weight: bold">Tanlash ...</option>
+                    <% for (let item of course) {%>
+                    <option value="<%= item._id %>"><%= item.title %></option>
+                    <% } %>
+                </select>
+            </div>
+
+            <div class="input-group mt-2" style="display: flex; flex-direction: column" >
+                <label class="select_group_text">Kerakli mavzuni tanlang</label>
+                <select name="section_ID" class="form-control select_group" value="">
+                    <option class="tema" value=""></option>
+                </select>
+            </div>
+
+
+            <div class="input-group mb-3 pb-3 mt-2">
+                <div class="file-upload">
+                <div class="image-upload-wrap">
+                    <input name="pdf" class="file-upload-input" type="file" onchange="readURL(this);"  multiple />
+                    <div class="drag-text">
+                    <h3>Qo'llanmani yuklash</h3>
+                    </div>
+                </div>
+                <div class="file-upload-content">
+                    <video class="file-upload-image" src="#" alt="your image"></video>
+                    <div class="image-title-wrap">
+                    <button type="button" onclick="removeUpload()" class="remove-image" >
+                        Remove <span class="image-title">Uploaded Image</span>
+                    </button>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label>Qo'llanama nomini kiriting</label>
+                <input type="text" name="title" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label>Qo'llanma haqida</label>
+                <textarea   name="description" class="form-control" cols="30" rows="10"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Saqlash</button>
+
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+  
+  <script>
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+  
+        reader.onload = function (e) {
+          $(".image-upload-wrap").hide();
+  
+          $(".file-upload-image").attr("src", e.target.result);
+          $(".file-upload-content").show();
+  
+          $(".image-title").html(input.files[0].name);
+        };
+  
+        reader.readAsDataURL(input.files[0]);
+      } else {
+        removeUpload();
+      }
+    }
+  
+    function removeUpload() {
+      $(".file-upload-input").replaceWith($(".file-upload-input").clone());
+      $(".file-upload-content").hide();
+      $(".image-upload-wrap").show();
+    }
+    $(".image-upload-wrap").bind("dragover", function () {
+      $(".image-upload-wrap").addClass("image-dropping");
+    });
+    $(".image-upload-wrap").bind("dragleave", function () {
+      $(".image-upload-wrap").removeClass("image-dropping");
+    });
+  
+  
+    // ==========================   Filtrlash   ==========================
+    const btnGroupTeacher = document.getElementById("filterTheme");
+    document.querySelector(".select_group").style.display = "none";
+    document.querySelector(".select_group_text").style.display = "none";
+    btnGroupTeacher.addEventListener("change", () => {
+      filterMe();
+    });
+    function filterMe() {
+      axios
+        .get(
+          `/filter/filter_theme_of_course/${btnGroupTeacher.value}`
+        )
+        .then(async (res) => {
+          const result = res.data.data;
+          document.querySelector(".select_group").style.display = "block";
+          document.querySelector(".select_group_text").style.display = "block";
+          let select = $(".select_group");
+          await select.html("");
+          select.append(`<option style="font-weight: bold">Tanlash ...</option>`);
+          result.forEach((item) => {
+            select.append(
+              `
+            <option class="tema" value="${item._id}">` +
+                item.name +
+                "</option>"
+            );
+          });
+        });
+    }
+  </script>

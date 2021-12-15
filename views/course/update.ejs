@@ -1,0 +1,46 @@
+<div class="pt-3 pb-3 pl-3">
+    <h4>Kursni tahrirlash</h4>
+</div>
+
+<div class="row">
+    <div class="col-md-12 mt-3"
+        style="display: flex; flex-direction: row; justify-content: space-between; flex-wrap: wrap;">
+        <form method="POST" action="<%=`/course/info/${result._id}?_method=PUT`%>" class="col-md-8">
+            <div class="mb-3">
+                <label>Kurs nomi</label>
+                <input type="text" class="form-control" value="<%= result.title %>" name="title" />
+            </div>
+            <div class="mt-3">
+                <label>Kurs muallifi</label>
+                <input type="text" class="form-control" value="<%= result.author_name %>" name="author_name" />
+            </div>
+            <div class="mt-3">
+                <label>Kurs narxi</label>
+                <input type="number" class="form-control" value="<%= result.price %>" name="price" />
+            </div>
+            <div class="mt-3">
+                <label>Kurs kurs haqida</label>
+                <textarea class="form-control" name="description" cols="30"
+                    rows="10"><%= result.description %></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary col-md-5 mt-3">Saqlash</button>
+        </form>
+
+
+        <form method="POST" action="<%=`/course/image/${result._id}?_method=PUT`%>" ref="uploadForm"
+            encType="multipart/form-data" class="col-md-4 mt-3">
+            <div class="mb-3">
+                <label>Rasmni tahrirlash</label>
+                <img class="col" src="/uploads/course/<%= result.image %>" name="image">
+            </div>
+            <input name="image" type="file" multiple="multiple"> <br>
+
+            <button type="submit" class="btn btn-primary col-md-5 mt-3">Saqlash</button>
+        </form>
+    </div>
+
+</div>
+
+
+
+<!-- Dropzone js -->

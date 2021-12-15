@@ -1,0 +1,575 @@
+<div class="container-fluid">
+    <div class="page-title-box">
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <h4 >Statistika</h4>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-heading p-4">
+                    <div class="mini-stat-icon float-right">
+                        <i class="mdi mdi-cube-outline bg-primary  text-white"></i>
+                    </div>
+                    <div>
+                        <h5 class="font-16">Kurslar</h5>
+                    </div>
+                    <h3 class="mt-4" id="course"></h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-heading p-4">
+                    <div class="mini-stat-icon float-right">
+                        <i class="mdi mdi-cube-outline bg-primary  text-white"></i>
+                    </div>
+                    <div>
+                        <h5 class="font-16">Sotilgan kurslar</h5>
+                    </div>
+                    <h3 class="mt-4" id="sold_course"></h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-heading p-4">
+                    <div class="mini-stat-icon float-right">
+                        <i class="mdi mdi-cube-outline bg-primary  text-white"></i>
+                    </div>
+                    <div>
+                        <h5 class="font-16">Foydalanuvchilar</h5>
+                    </div>
+                    <h3 id="users" class="mt-4"></h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-heading p-4">
+                    <div class="mini-stat-icon float-right">
+                        <i class="mdi mdi-cube-outline bg-primary  text-white"></i>
+                    </div>
+                    <div>
+                        <h5 class="font-16">Jamoa</h5>
+                    </div>
+                    <h3 class="mt-4" id="teams"></h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-heading p-4">
+                    <div class="mini-stat-icon float-right">
+                        <i class="mdi mdi-cube-outline bg-primary  text-white"></i>
+                    </div>
+                    <div>
+                        <h5 class="font-16">Hamkorlar </h5>
+                    </div>
+                    <h3 class="mt-4" id="brands"></h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-heading p-4">
+                    <div class="mini-stat-icon float-right">
+                        <i class="mdi mdi-cube-outline bg-primary  text-white"></i>
+                    </div>
+                    <div>
+                        <h5 class="font-16">Yangilikar </h5>
+                    </div>
+                    <h3 class="mt-4" id="news"></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="card m-b-30">
+          <div class="card-body">
+            <h5 class="mt-2 mb-4">Eng zo’r test ishlagan foydalanuvchilar</h5>
+           
+            <div class="tab-content">
+              <div class="tab-pane active p-3" id="home-1" role="tabpanel">
+                
+
+                <table id="datatable" class="table table-bordered text-center" style="border-collapse: collapse; border-spacing: 0; width: 100%; " >
+                    <thead>
+                      <tr>
+                        <th>Foydalanuvchining ismi</th>
+                        <th>Testlar soni</th>
+                        <th>To'g'ri javoblar</th>
+                        <th style="width: 30%">O'zlashtirish darajasi</th>
+                      </tr>
+                    </thead>
+          
+                    <tbody id="best_student">
+                        
+                    </tbody>
+                  </table>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="card m-b-30">
+          <div class="card-body">
+            <h5 class="mt-2 mb-4">Eng ko'p ball yig'gan foydalanuvchilarning test natijalari</h5>
+            <ul class="nav nav-pills nav-justified" role="tablist">
+              <li class="nav-item waves-effect waves-light">
+                <a class="nav-link active" data-toggle="tab" href="#week_get_more_result" role="tab">
+                  <span class="d-none d-md-block font-14">1 haftalik</span>
+                  <span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
+                </a>
+              </li>
+              <li class="nav-item waves-effect waves-light">
+                <a class="nav-link " data-toggle="tab" href="#monthOne_get_more_result" role="tab">
+                  <span class="d-none d-md-block font-14">1 oylik</span>
+                  <span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
+                </a>
+              </li>
+              <li class="nav-item waves-effect waves-light">
+                <a class="nav-link " data-toggle="tab" href="#monthThree_get_more_result" role="tab">
+                  <span class="d-none d-md-block font-14">3 oylik</span>
+                  <span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
+                </a>
+              </li>
+              <li class="nav-item waves-effect waves-light">
+                <a class="nav-link " data-toggle="tab" href="#monthSix_get_more_result" role="tab">
+                  <span class="d-none d-md-block font-14">6 oylik</span>
+                  <span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
+                </a>
+              </li>
+              <li class="nav-item waves-effect waves-light">
+                <a class="nav-link " data-toggle="tab" href="#yearOne_get_more_result" role="tab">
+                  <span class="d-none d-md-block font-14">1 yillik</span>
+                  <span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
+                </a>
+              </li>
+             
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active p-3" id="week_get_more_result" role="tabpanel">
+                  <div>
+                    <table id="datatable" class="table table-bordered text-center" style="border-collapse: collapse; border-spacing: 0; width: 100%; " >                        <thead>
+                          <tr>
+                            <th>Foydalanuvchining ismi</th>
+                            <th>Testlar soni</th>
+                            <th>To'g'ri javoblar</th>
+                            <th style="width: 30%">O'zlashtirish darajasi</th>
+                          </tr>
+                        </thead>
+                        <tbody id="best_student_ball_one_week"></tbody>
+                      </table>
+                  </div>
+                
+              </div>
+              <div class="tab-pane  p-3" id="monthOne_get_more_result" role="tabpanel">
+                <table id="datatable" class="table table-bordered text-center" style="border-collapse: collapse; border-spacing: 0; width: 100%; " >
+                    <thead>
+                      <tr>
+                        <th>Foydalanuvchining ismi</th>
+                        <th>Testlar soni</th>
+                        <th>To'g'ri javoblar</th>
+                        <th style="width: 30%">O'zlashtirish darajasi</th>
+                      </tr>
+                    </thead>
+                    <tbody id="best_student_ball_one_month"></tbody>
+                  </table>
+              </div>
+              <div class="tab-pane  p-3" id="monthThree_get_more_result" role="tabpanel">
+                <table id="datatable" class="table table-bordered text-center" style="border-collapse: collapse; border-spacing: 0; width: 100%; " >
+                    <thead>
+                      <tr>
+                        <th>Foydalanuvchining ismi</th>
+                        <th>Testlar soni</th>
+                        <th>To'g'ri javoblar</th>
+                        <th style="width: 30%">O'zlashtirish darajasi</th>
+                      </tr>
+                    </thead>
+                    <tbody id="best_student_ball_three_month"></tbody>
+                  </table>
+              </div>
+              <div class="tab-pane  p-3" id="monthSix_get_more_result" role="tabpanel">
+                <table id="datatable" class="table table-bordered text-center" style="border-collapse: collapse; border-spacing: 0; width: 100%; " >
+                    <thead>
+                      <tr>
+                        <th>Foydalanuvchining ismi</th>
+                        <th>Testlar soni</th>
+                        <th>To'g'ri javoblar</th>
+                        <th style="width: 30%">O'zlashtirish darajasi</th>
+                      </tr>
+                    </thead>
+                    <tbody id="best_student_ball_six_month"></tbody>
+                  </table>
+              </div>
+              <div class="tab-pane  p-3" id="yearOne_get_more_result" role="tabpanel">
+                <table id="datatable" class="table table-bordered text-center" style="border-collapse: collapse; border-spacing: 0; width: 100%; " >
+                    <thead>
+                      <tr>
+                        <th>Foydalanuvchining ismi</th>
+                        <th>Testlar soni</th>
+                        <th>To'g'ri javoblar</th>
+                        <th style="width: 30%">O'zlashtirish darajasi</th>
+                      </tr>
+                    </thead>
+                    <tbody id="best_student_ball_one_year"></tbody>
+                  </table>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="card m-b-30">
+          <div class="card-body">
+            <h5 class="mt-2 mb-4">Sotilgan kurslar ro'yhati</h5>
+            <ul class="nav nav-pills nav-justified" role="tablist">
+              <li class="nav-item waves-effect waves-light">
+                <a class="nav-link active" data-toggle="tab" href="#stats_sold_course_day" role="tab">
+                  <span class="d-none d-md-block font-14">Umumiy sotilgan (martada)</span>
+                  <span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
+                </a>
+              </li>
+              
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active p-3" id="stats_sold_course_day" role="tabpanel">
+                <div>
+                    <table id="datatable" class="table table-bordered text-center" style="border-collapse: collapse; border-spacing: 0; width: 100%; " >                        <thead>
+                          <tr>
+                            <th>Kurs nomi</th>
+                            <th style="width: 17%;">(1 kunda)</th>
+                            <th style="width: 17%;">(1 hafta)</th>
+                            <th style="width: 17%;">(1 oy)</th>
+                            <th style="width: 17%;">(3 oy)</th>
+                          </tr>
+                        </thead>
+                        <tbody id="sold_course_result"></tbody>
+                      </table>
+                  </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+    </div>
+    <!-- <div class="col-md-12">
+        <div class="card m-b-30">
+          <div class="card-body">
+            <h5 class="mt-2 mb-4">Sotilgan kurslar kelgan tushumlar soni</h5>
+            <ul class="nav nav-pills nav-justified" role="tablist">
+
+              <li class="nav-item waves-effect waves-light">
+                <a class="nav-link active" data-toggle="tab" href="#week_get_more_sold_course_money" role="tab">
+                  <span class="d-none d-md-block font-14">1 kunlik</span>
+                  <span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
+                </a>
+              </li>
+
+              <li class="nav-item waves-effect waves-light">
+                <a class="nav-link " data-toggle="tab" href="#monthOne_get_more_sold_course_money" role="tab">
+                  <span class="d-none d-md-block font-14">1 haftalik</span>
+                  <span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
+                </a>
+              </li>
+
+
+              <li class="nav-item waves-effect waves-light">
+                <a class="nav-link " data-toggle="tab" href="#monthThree_get_more_sold_course_money" role="tab">
+                  <span class="d-none d-md-block font-14">1 oylik</span>
+                  <span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
+                </a>
+              </li>
+
+              <li class="nav-item waves-effect waves-light">
+                <a class="nav-link " data-toggle="tab" href="#monthSix_get_more_sold_course_money" role="tab">
+                  <span class="d-none d-md-block font-14">3 oylik</span>
+                  <span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
+                </a>
+              </li>
+
+              <li class="nav-item waves-effect waves-light">
+                <a class="nav-link " data-toggle="tab" href="#monthaaa_get_more_sold_course_money" role="tab">
+                  <span class="d-none d-md-block font-14">6 oylik</span>
+                  <span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
+                </a>
+              </li>
+              <li class="nav-item waves-effect waves-light">
+                <a class="nav-link " data-toggle="tab" href="#monthbbb_get_more_sold_course_money" role="tab">
+                  <span class="d-none d-md-block font-14">1 yillik</span>
+                  <span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
+                </a>
+              </li>
+
+              
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active p-3" id="week_get_more_sold_course_money" role="tabpanel">
+                1 kunlik
+              </div>
+              <div class="tab-pane  p-3" id="monthOne_get_more_sold_course_money" role="tabpanel">
+                1 haftalik
+              </div>
+              <div class="tab-pane  p-3" id="monthThree_get_more_sold_course_money" role="tabpanel">
+                1 oylik
+              </div>
+              <div class="tab-pane  p-3" id="monthSix_get_more_sold_course_money" role="tabpanel">
+                3 oylik
+              </div>
+              <div class="tab-pane  p-3" id="monthaaa_get_more_sold_course_money" role="tabpanel">
+                6 oylik
+              </div>
+              <div class="tab-pane  p-3" id="monthbbb_get_more_sold_course_money" role="tabpanel">
+                1 yillik
+              </div>
+              
+            </div>
+          </div>
+        </div>
+    </div> -->
+    
+    <div class="col-md-12">
+        <div class="card m-b-30">
+          <div class="card-body">
+            <h5 class="mt-2 mb-4">Kar bir kurs bo'yicha matriallar soni</h5>
+            <ul class="nav nav-pills nav-justified" role="tablist">
+
+              <li class="nav-item waves-effect waves-light">
+                <a class="nav-link active" data-toggle="tab" href="#home-1" role="tab">
+                  <span class="d-none d-md-block font-14">Umumiy ro'yhat</span>
+                  <span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
+                </a>
+              </li>
+             
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active p-3" id="home-1" role="tabpanel">
+                <div>
+                    <table id="datatable" class="table table-bordered text-center" style="border-collapse: collapse; border-spacing: 0; width: 100%; " >                        <thead>
+                          <tr>
+                            <th>Kurs nomi</th>
+                            <th style="width: 17%;">Test</th>
+                            <th style="width: 17%;">Audio</th>
+                            <th style="width: 17%;">Qo'llanma</th>
+                            <th style="width: 17%;">Video</th>
+                          </tr>
+                        </thead>
+                        <tbody id="course_matrial"></tbody>
+                      </table>
+                  </div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="card m-b-30">
+          <div class="card-body">
+            <h5 class="mt-2 mb-4">Bepul fanlar bo'yicha testlar soni</h5>
+            <ul class="nav nav-pills nav-justified" role="tablist">
+
+              <li class="nav-item waves-effect waves-light">
+                <a class="nav-link active" data-toggle="tab" href="#home-1" role="tab">
+                  <span class="d-none d-md-block font-14">Umumiy ro'yhat</span>
+                  <span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
+                </a>
+              </li>
+             
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active p-3" id="home-1" role="tabpanel">
+                <div>
+                    <table id="datatable" class="table table-bordered text-center" style="border-collapse: collapse; border-spacing: 0; width: 100%; " >                        <thead>
+                          <tr>
+                            <th>Fan nomi</th>
+                            <th style="width: 17%;">Bloklashgan</th>
+                            <th style="width: 17%;">Sinflashgan</th>
+                            <th style="width: 17%;">Mavzulashgan</th>
+                            <th style="width: 17%;">Varianlashgan</th>
+                            <th style="width: 17%;">Umumiy soni</th>
+                          </tr>
+                        </thead>
+                        <tbody id="course_matrial_free"></tbody>
+                      </table>
+                  </div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<script>
+
+
+    axios.get('/statistic/users').then(res => {
+        document.getElementById("users").innerHTML = res.data
+    })
+    axios.get('/statistic/news').then(res => {
+        document.getElementById("news").innerHTML = res.data
+    })
+    axios.get('/statistic/teams').then(res => {
+        document.getElementById("teams").innerHTML = res.data
+    })
+    axios.get('/statistic/brands').then(res => {
+        document.getElementById("brands").innerHTML = res.data
+    })
+    axios.get('/statistic/sold_course').then(res => {
+        document.getElementById("sold_course").innerHTML = res.data
+    })
+    axios.get('/statistic/course').then(res => {
+        document.getElementById("course").innerHTML = res.data
+    })
+    axios.get('/statistic/best').then(res => {
+        const result_best = res.data
+        let select = $("#best_student");
+        result_best.forEach((item) => {
+          select.append(`
+            <tr>
+                <td>${item.name}</td>
+                <td>${item.totalQuestion}</td>
+                <td>${item.results}</td>
+                <td>${Math.round(item.percentage) }</td>
+            </tr>
+          `);
+        });
+    })
+    axios.get('/statistic/one_week').then(res => {
+        const result_best = res.data.data
+        let select = $("#best_student_ball_one_week");
+        result_best.forEach((item) => {
+          select.append(`
+            <tr>
+                <td>${item.name}</td>
+                <td>${item.totalQuestion}</td>
+                <td>${item.results}</td>
+                <td>${Math.round(item.percentage) }</td>
+            </tr>
+          `);
+        });
+    })
+    axios.get('/statistic/one_month').then(res => {
+        const result_best = res.data.data
+        let select = $("#best_student_ball_one_month");
+        result_best.forEach((item) => {
+          select.append(`
+            <tr>
+                <td>${item.name}</td>
+                <td>${item.totalQuestion}</td>
+                <td>${item.results}</td>
+                <td>${Math.round(item.percentage) }</td>
+            </tr>
+          `);
+        });
+    })
+    axios.get('/statistic/three_month').then(res => {
+        const result_best = res.data.data
+        let select = $("#best_student_ball_three_month");
+        result_best.forEach((item) => {
+          select.append(`
+            <tr>
+                <td>${item.name}</td>
+                <td>${item.totalQuestion}</td>
+                <td>${item.results}</td>
+                <td>${Math.round(item.percentage) }</td>
+            </tr>
+          `);
+        });
+    })
+    axios.get('/statistic/six_month').then(res => {
+        const result_best = res.data.data
+        let select = $("#best_student_ball_six_month");
+        result_best.forEach((item) => {
+          select.append(`
+            <tr>
+                <td>${item.name}</td>
+                <td>${item.totalQuestion}</td>
+                <td>${item.results}</td>
+                <td>${Math.round(item.percentage) }</td>
+            </tr>
+          `);
+        });
+    })
+    axios.get('/statistic/one_year').then(res => {
+        const result_best = res.data.data
+        let select = $("#best_student_ball_one_year");
+        result_best.forEach((item) => {
+          select.append(`
+            <tr>
+                <td>${item.name}</td>
+                <td>${item.totalQuestion}</td>
+                <td>${item.results}</td>
+                <td>${Math.round(item.percentage) }</td>
+            </tr>
+          `);
+        });
+    })
+    axios.get('/statistic/sold_course').then(res => {
+        const result_best = res.data.data
+        let sold_course_result = $("#sold_course_result");
+        result_best.forEach((item) => {
+        sold_course_result.append(`
+            <tr>
+                <td>${item.title}</td>
+                <td>${item.sold_1_kun[0].sold_1_kun}</td>
+                <td>${item.sold_7_kun[0].sold_7_kun}</td>
+                <td>${item.sold_7_kun[0].sold_7_kun}</td>
+                <td>${item.sold_3_month[0].sold_3_month}</td>
+            </tr>
+          `);
+        });
+    })
+    
+    axios.get('/statistic/materialOfSellingSubjects').then(res => {
+        const result_best = res.data.data
+        console.log("materialOfSellingSubjects", result_best)
+        let course_matrial = $("#course_matrial");
+        result_best.forEach((item) => {
+            course_matrial.append(`
+            <tr>
+                <td>${item.title}</td>
+                <td>${item.fan_mavzulari[0].mavzu_boyicha_test_bolimlar[0].count}</td>
+                <td>${item.fan_mavzulari[0].mavzu_boyicha_audiolar[0].counts}</td>
+                <td>${item.fan_mavzulari[0].mavzu_boyicha_kitoblar[0].counts}</td>
+                <td>${item.fan_mavzulari[0].mavzu_boyicha_kitoblar[0].counts}</td>
+                
+            </tr>
+          `);
+        });
+    })
+    axios.get('/statistic/materialOfFreeSubjects').then(res => {
+        const result_best = res.data.data
+        console.log("materialOfFreeSubjects", result_best)
+        let course_matrial_free = $("#course_matrial_free");
+        result_best.forEach((item) => {
+            course_matrial_free.append(`
+            <tr>
+                <td>${item.name}</td>
+                <td>${item.unit_blockeds_ALL[0].count}</td>
+                <td>${item.unit_formeds_ALL[0].count}</td>
+                <td>${item.unit_themeds_ALL[0].count}</td>
+                <td>${item.unit_varianteds_ALL[0].count}</td>
+                <td>${item.all_test_COUNT}</td>
+            </tr>
+          `);
+        });
+    })
+
+
+
+
+
+
+</script>

@@ -1,0 +1,64 @@
+<div class="col-md-12">
+    <div class="card m-b-30">
+        <div class="card-body">
+            <h4 class="mt-2 mb-4">Yangilik haqida ma'lumot</h4>
+            <ul class="nav nav-pills nav-justified" role="tablist">
+                <li class="nav-item waves-effect waves-light">
+                    <a class="nav-link active" data-toggle="tab" href="#home-1" role="tab">
+                        <span class="d-none d-md-block font-14">Umumiy ma'lumot</span>
+                        <span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
+                    </a>
+                </li>
+                <li class="nav-item waves-effect waves-light">
+                    <a class="nav-link" data-toggle="tab" href="#profile-1" role="tab">
+                        <span class="d-none d-md-block font-14">Rasmi</span>
+                        <span class="d-block d-md-none"><i class="mdi mdi-account h5"></i></span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active p-3" id="home-1" role="tabpanel">
+                    <table class="table table-bordered border-primary text-center">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="font-weight: 600; width: 35%;">Bo'limlar</th>
+                                <th scope="col" style="font-weight: 600;">Ma'lumotlar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Yangilik mavzusi</td>
+                                <td>
+                                    <%= result.title %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Yangilik mazmuni</td>
+                                <td>
+                                    <%= result.description %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tag</td>
+                                <td>
+                                    <%= result.tag %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Yaratilgan sana</td>
+                                <td>
+                                    <%= moment(result.date).format("DD-MM-YYYY - hh:mm:ss") %>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane p-3" id="profile-1" role="tabpanel">
+                    <img class="col-md-6 offset-3 mt-5" src="/uploads/news/<%= result.image %>" name="image">
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

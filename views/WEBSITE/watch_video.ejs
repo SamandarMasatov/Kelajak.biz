@@ -1,0 +1,449 @@
+<section  id="app" class="video-content">
+    <div class="video-player-wrapper">
+			<div class='player' oncontextmenu="return false">
+			<video id='video' :src=`/uploads/video/${defaultVideo}` playsinline controlsList="nodownload"></video>
+				<div class='play-btn-big'></div> 
+				<div class='controls'>
+					<div class="time"><span class="time-current"></span><span class="time-total"></span></div>
+					<div class='progress'>
+						<div class='progress-filled'></div> 
+					</div>
+					<div class='controls-main'>
+						<div class='controls-left'> 
+							<div class='play-btn paused'></div>
+							<div class='volume'>
+								<div class='volume-btn loud'>
+									<svg width="20" height="20" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M6.75497 17.6928H2C0.89543 17.6928 0 16.7973 0 15.6928V8.30611C0 7.20152 0.895431 6.30611 2 6.30611H6.75504L13.9555 0.237289C14.6058 -0.310807 15.6 0.151473 15.6 1.00191V22.997C15.6 23.8475 14.6058 24.3098 13.9555 23.7617L6.75497 17.6928Z" transform="translate(0 0.000518799)" fill="white"/>
+										<path id="volume-low" d="M0 9.87787C2.87188 9.87787 5.2 7.66663 5.2 4.93893C5.2 2.21124 2.87188 0 0 0V2C1.86563 2 3.2 3.41162 3.2 4.93893C3.2 6.46625 1.86563 7.87787 0 7.87787V9.87787Z" transform="translate(17.3333 7.44955)" fill="white"/>
+		
+										<path id="volume-high" d="M0 16.4631C4.78647 16.4631 8.66667 12.7777 8.66667 8.23157C8.66667 3.68539 4.78647 0 0 0V2C3.78022 2 6.66667 4.88577 6.66667 8.23157C6.66667 11.5773 3.78022 14.4631 0 14.4631V16.4631Z" transform="translate(17.3333 4.15689)" fill="white"/> 
+								<path id="volume-off" d="M1.22565 0L0 1.16412L3.06413 4.0744L0 6.98471L1.22565 8.14883L4.28978 5.23853L7.35391 8.14883L8.57956 6.98471L5.51544 4.0744L8.57956 1.16412L7.35391 0L4.28978 2.91031L1.22565 0Z" transform="translate(17.3769 8.31403)" fill="white"/>
+									</svg>
+		
+								</div>
+								<div class='volume-slider'>
+									<div class='volume-filled'><span></span></div>
+								</div>
+							</div>
+						</div>
+
+						<div class="controls-right">
+							<div class='speed activ-speed'>
+								<ul class='speed-list'>
+									<li class='speed-item' data-speed='0.5'>0.5x</li>
+									<li class='speed-item' data-speed='0.75'>0.75x</li>
+									<li class='speed-item activeli' data-speed='1' >1x</li>
+									<li class='speed-item' data-speed='1.5'>1.5x</li>
+									<li class='speed-item' data-speed='2'>2x</li>
+								</ul>
+							</div>
+							<div class="settings">
+								<svg xmlns="http://www.w3.org/2000/svg" style="fill: #fff;" enable-background="new 255 255 255" height="20" viewBox="0 0 24 24" width="20"><path d="m22.683 9.394-1.88-.239c-.155-.477-.346-.937-.569-1.374l1.161-1.495c.47-.605.415-1.459-.122-1.979l-1.575-1.575c-.525-.542-1.379-.596-1.985-.127l-1.493 1.161c-.437-.223-.897-.414-1.375-.569l-.239-1.877c-.09-.753-.729-1.32-1.486-1.32h-2.24c-.757 0-1.396.567-1.486 1.317l-.239 1.88c-.478.155-.938.345-1.375.569l-1.494-1.161c-.604-.469-1.458-.415-1.979.122l-1.575 1.574c-.542.526-.597 1.38-.127 1.986l1.161 1.494c-.224.437-.414.897-.569 1.374l-1.877.239c-.753.09-1.32.729-1.32 1.486v2.24c0 .757.567 1.396 1.317 1.486l1.88.239c.155.477.346.937.569 1.374l-1.161 1.495c-.47.605-.415 1.459.122 1.979l1.575 1.575c.526.541 1.379.595 1.985.126l1.494-1.161c.437.224.897.415 1.374.569l.239 1.876c.09.755.729 1.322 1.486 1.322h2.24c.757 0 1.396-.567 1.486-1.317l.239-1.88c.477-.155.937-.346 1.374-.569l1.495 1.161c.605.47 1.459.415 1.979-.122l1.575-1.575c.542-.526.597-1.379.127-1.985l-1.161-1.494c.224-.437.415-.897.569-1.374l1.876-.239c.753-.09 1.32-.729 1.32-1.486v-2.24c.001-.757-.566-1.396-1.316-1.486zm-10.683 7.606c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z"/></svg>
+							</div>
+							<div class='fullscreen'>
+								<svg width="30" height="22" viewBox="0 0 30 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M0 0V-1.5H-1.5V0H0ZM0 18H-1.5V19.5H0V18ZM26 18V19.5H27.5V18H26ZM26 0H27.5V-1.5H26V0ZM1.5 6.54545V0H-1.5V6.54545H1.5ZM0 1.5H10.1111V-1.5H0V1.5ZM-1.5 11.4545V18H1.5V11.4545H-1.5ZM0 19.5H10.1111V16.5H0V19.5ZM24.5 11.4545V18H27.5V11.4545H24.5ZM26 16.5H15.8889V19.5H26V16.5ZM27.5 6.54545V0H24.5V6.54545H27.5ZM26 -1.5H15.8889V1.5H26V-1.5Z" transform="translate(2 2)" fill="white"/>
+			</svg>
+		
+			</svg>
+		
+		
+			</div>
+						</div>
+				</div>
+			</div>
+       </div>
+	   
+       <!-- Carousel -->
+	   <div class="watch-tab">
+			   <ul class="ul-tab">
+				   <li class="li-tab activ-watch">Course content</li>
+				   <li class="li-tab">About this course</li>
+			   </ul>
+		   <article class="watch-tab-content">
+			<nav class="active-watch-nav">
+				<div class="accordion-player-wrapper-mobil">
+					<div class="course-content">
+						<h2>Course content</h2>	
+					</div>
+					<article class="accordion-content">
+						<div v-for="item of accordion" :key="item._id">
+							<button class="accordions">
+								<span>{{item.name}}</span>
+									<i class="fas fa-chevron-down chevronDown"></i>
+								</button>
+	
+								<div class="panel">
+									<div class="column">
+										<p class="panel-title-v">Videolar</p>
+										<div  v-for="video of item.video" :key="video._id">
+											<div class="accordion-video-item" v-on:click="videoActive( video.video )">
+												<div class="video-icon-title" >
+										<div class="video-icon-wrapper">
+											<span class="play-icon-wrapper">
+												<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="163.861px" height="163.861px" viewBox="0 0 163.861 163.861" style="enable-background:new 0 0 163.861 163.861;" xml:space="preserve">
+													<g>
+														<path d="M34.857,3.613C20.084-4.861,8.107,2.081,8.107,19.106v125.637c0,17.042,11.977,23.975,26.75,15.509L144.67,97.275   c14.778-8.477,14.778-22.211,0-30.686L34.857,3.613z"/>
+													</g>
+													<g>
+													</g>
+													<g>
+													</g>
+													<g>
+													</g>
+													<g>
+													</g>
+													<g>
+													</g>
+													<g>
+													</g>
+													<g>
+													</g>
+													<g>
+													</g>
+													<g>
+													</g>
+													<g>
+													</g>
+													<g>
+													</g>
+													<g>
+													</g>
+													<g>
+													</g>
+													<g>
+													</g>
+													<g>
+													</g>
+													</svg>
+											</span>
+										</div>
+										<span class="title-video">{{video.title}}</span>
+												</div>
+							 					<div class="before-watch">
+													<p class="watch-s">Ko'rish</p>
+													<p class="minut-s">{{video.video_time}}</p>
+							 					</div>
+											</div>
+										</div>
+									</div>
+								
+									<div class="column mt-3">
+										<p class="panel-title-v">Kitoblar</p>
+										<div v-for="book of item.book" :key="book._id">
+											<a v-bind:href="'/pdf_course/' + book._id">
+												<div class="accordion-video-item" v-on:click="bookActive( book.pdf )">
+													<div class="video-icon-title" >
+														<div class="video-icon-wrapper">
+															<span class="play-icon-wrapper">
+																<svg xmlns="http://www.w3.org/2000/svg" height="512" viewBox="0 0 64 64" width="512"><g id="Layer_7" data-name="Layer 7"><path d="m10 11h2v8h2v-8h2v-2h-6z"/><path d="m34 11h2v8h2v-8h2v-2h-6z"/><path d="m18 10v8a1 1 0 0 0 1 1h5v-2h-4v-2h4v-2h-4v-2h4v-2h-5a1 1 0 0 0 -1 1z"/><path d="m26 12a3 3 0 0 0 3 3 1 1 0 0 1 0 2h-3v2h3a3 3 0 0 0 0-6 1 1 0 0 1 0-2h3v-2h-3a3 3 0 0 0 -3 3z"/><path d="m7 23h36a1 1 0 0 0 1-1v-16a1 1 0 0 0 -1-1h-36a1 1 0 0 0 -1 1v16a1 1 0 0 0 1 1zm1-16h34v14h-34z"/><path d="m6 35h6a1 1 0 0 0 1-1v-5.59l2.71-2.7-1.42-1.42-2.7 2.71h-5.59a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1zm5-2h-2.59l2.59-2.59zm-1.41-4-2.59 2.59v-2.59z"/><path d="m12 47h-6a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0 -1-1zm-1 6h-4v-4h4z"/><path d="m13.29 35.29-1.7 1.71h-5.59a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-5.59l1.71-1.7zm-3.7 3.71-2.59 2.59v-2.59zm1.41 4h-2.59l2.59-2.59z"/><path d="m15 28h29v2h-29z"/><path d="m15 48h13v2h-13z"/><path d="m15 52h29v2h-29z"/><path d="m62.71 22.29-4-4a1 1 0 0 0 -1.42 0l-8.29 8.3v-24.59a1 1 0 0 0 -1-1h-46a1 1 0 0 0 -1 1v60a1 1 0 0 0 1 1h46a1 1 0 0 0 1-1v-24.59l13.71-13.7a1 1 0 0 0 0-1.42zm-28.37 22.46 1.91 1.91-3.35 1.44zm1.07-1.75 18.59-18.59 2.59 2.59-18.59 18.59zm11.59 18h-44v-58h44v25.59l-3.41 3.41h-28.59v2h26.59l-4 4h-22.59v2h20.59l-2 2h-18.59v2h17.48l-2.4 5.61a1 1 0 0 0 .92 1.39 1 1 0 0 0 .39-.08l7-3a1.11 1.11 0 0 0 .32-.21l8.29-8.3zm11-35.41-2.59-2.59 2.59-2.59 2.59 2.59z"/></g></svg>
+															</span>
+														</div>
+														<span class="title-video">{{book.title}}</span>
+													</div>
+							
+												 <div class="before-watch">
+													<p class="watch-s">Kitob</p>
+													<p class="minut-s">15:46</p>
+												 </div>
+												</div>
+											</a>
+										</div>
+									</div>
+			
+									<div class="column mt-3">
+										<p class="panel-title-v">Testlar</p>
+										<div v-for="test of item.collection" :key="test._id">
+											<a v-bind:href="'/test_course/' + test._id">
+												<div class="accordion-video-item" >
+													<div class="video-icon-title" v-on:click="videoActive( book.book )">
+														<div class="video-icon-wrapper">
+															
+																<svg xmlns="http://www.w3.org/2000/svg" height="512" viewBox="0 0 64 64" width="512"><g id="Layer_7" data-name="Layer 7"><path d="m10 11h2v8h2v-8h2v-2h-6z"/><path d="m34 11h2v8h2v-8h2v-2h-6z"/><path d="m18 10v8a1 1 0 0 0 1 1h5v-2h-4v-2h4v-2h-4v-2h4v-2h-5a1 1 0 0 0 -1 1z"/><path d="m26 12a3 3 0 0 0 3 3 1 1 0 0 1 0 2h-3v2h3a3 3 0 0 0 0-6 1 1 0 0 1 0-2h3v-2h-3a3 3 0 0 0 -3 3z"/><path d="m7 23h36a1 1 0 0 0 1-1v-16a1 1 0 0 0 -1-1h-36a1 1 0 0 0 -1 1v16a1 1 0 0 0 1 1zm1-16h34v14h-34z"/><path d="m6 35h6a1 1 0 0 0 1-1v-5.59l2.71-2.7-1.42-1.42-2.7 2.71h-5.59a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1zm5-2h-2.59l2.59-2.59zm-1.41-4-2.59 2.59v-2.59z"/><path d="m12 47h-6a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0 -1-1zm-1 6h-4v-4h4z"/><path d="m13.29 35.29-1.7 1.71h-5.59a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-5.59l1.71-1.7zm-3.7 3.71-2.59 2.59v-2.59zm1.41 4h-2.59l2.59-2.59z"/><path d="m15 28h29v2h-29z"/><path d="m15 48h13v2h-13z"/><path d="m15 52h29v2h-29z"/><path d="m62.71 22.29-4-4a1 1 0 0 0 -1.42 0l-8.29 8.3v-24.59a1 1 0 0 0 -1-1h-46a1 1 0 0 0 -1 1v60a1 1 0 0 0 1 1h46a1 1 0 0 0 1-1v-24.59l13.71-13.7a1 1 0 0 0 0-1.42zm-28.37 22.46 1.91 1.91-3.35 1.44zm1.07-1.75 18.59-18.59 2.59 2.59-18.59 18.59zm11.59 18h-44v-58h44v25.59l-3.41 3.41h-28.59v2h26.59l-4 4h-22.59v2h20.59l-2 2h-18.59v2h17.48l-2.4 5.61a1 1 0 0 0 .92 1.39 1 1 0 0 0 .39-.08l7-3a1.11 1.11 0 0 0 .32-.21l8.29-8.3zm11-35.41-2.59-2.59 2.59-2.59 2.59 2.59z"/></g></svg>
+										
+														</div>
+														<span class="title-video">{{test.name}}</span>
+													</div>
+							
+												 <div class="before-watch">
+													<p class="watch-s">Kitob</p>
+													<p class="minut-s">15:46</p>
+												 </div>
+												</div>
+											</a>
+										</div>
+									</div>
+									
+									<div class="column mt-3">
+										<p class="panel-title-v">Audiolar</p>
+										<div v-for="audio of item.audio" :key="audio._id">
+												<div class="accordion-video-item" v-on:click="videoActive( audio.audio )">
+													<div class="video-icon-title">
+														<span class="title-video">{{audio.title}}</span>
+													</div>
+												 <div class="before-watch">
+													<p class="watch-s">Audio</p>
+													<p class="minut-s">{{audio.audio_time}}</p>
+												 </div>
+												</div>
+												<div>
+													<audio controls controlsList="nodownload" style="width: 100%;" oncontextmenu="return false">
+														<source :src="'/uploads/video/' + audio.audio" type="audio/mp3">
+														<source :src="'/uploads/video/' + audio.audio" type="audio/x-m4a">
+													  </audio>
+												</div>
+										</div>
+									</div>
+								</div>
+						</div>
+							
+					</article> 
+				</div>
+			</nav>
+			<nav >
+				<div class="about-course">
+					<h1>About this course</h1>
+					<p>Complete Developer Guide covering Vue.js and Nuxt.js basic to advance concepts. Get your hands on real projects.
+						Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias mollitia reiciendis iste magnam sed, pariatur vitae, dolor expedita, harum nisi suscipit rem vero? Placeat doloremque recusandae hic ducimus, laudantium natus veniam distinctio tempora quos cupiditate similique minima, reprehenderit repudiandae ex nam omnis aspernatur repellendus sapiente? Autem dolorum magnam veritatis accusantium.
+					</p>
+					<hr>
+					<ul>
+						<li>Darajasi: Hamma uchun</li>
+						<li>O'quvchilar: 100</li> 
+						<li>Mavzular: 23</li>
+						<li>Video: 32 soat 16 minut</li>
+						<li></li>
+					</ul>
+				   </div>
+				  
+			</nav>
+			
+		   </article>
+	   </div>
+	   <!-- Carousel end -->
+    </div>
+	
+    <div class="accordion-player-wrapper">
+        <div class="course-content">
+            <h2>Course content</h2>
+        </div>
+		<article class="accordion-content" style="overflow-y: scroll;"> 
+			<div v-for="item of accordion" :key="item._id">
+				<button class="accordions">
+					<span>{{item.name}}</span>
+						<i class="fas fa-chevron-down chevronDown"></i>
+					</button>
+
+					<div class="panel">
+						<div class="column">
+							<p class="panel-title-v">Videolar</p>
+							<div  v-for="video of item.video" :key="video._id">
+								<div class="accordion-video-item" v-on:click="videoActive( video.video )">
+									<div class="video-icon-title" >
+										<div class="video-icon-wrapper">
+											<span class="play-icon-wrapper">
+												<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="163.861px" height="163.861px" viewBox="0 0 163.861 163.861" style="enable-background:new 0 0 163.861 163.861;" xml:space="preserve">
+													<g>
+														<path d="M34.857,3.613C20.084-4.861,8.107,2.081,8.107,19.106v125.637c0,17.042,11.977,23.975,26.75,15.509L144.67,97.275   c14.778-8.477,14.778-22.211,0-30.686L34.857,3.613z"/>
+													</g>
+													<g>
+													</g>
+													<g>
+													</g>
+													<g>
+													</g>
+													<g>
+													</g>
+													<g>
+													</g>
+													<g>
+													</g>
+													<g>
+													</g>
+													<g>
+													</g>
+													<g>
+													</g>
+													<g>
+													</g>
+													<g>
+													</g>
+													<g>
+													</g>
+													<g>
+													</g>
+													<g>
+													</g>
+													<g>
+													</g>
+													</svg>
+											</span>
+										</div>
+										<span class="title-video">{{video.title}}</span>
+									</div>
+							 <div class="before-watch">
+								<p class="watch-s">Ko'rish</p>
+								<p class="minut-s">15:46</p>
+							 </div>
+							</div>
+							</div>
+							
+						</div>
+					
+						<div class="column mt-3">
+							<p class="panel-title-v">Kitoblar</p>
+							<div v-for="book of item.book" :key="book._id">
+								<a v-bind:href="'/pdf_course/' + book._id">
+									<div class="accordion-video-item" v-on:click="bookActive( book.pdf )">
+										<div class="video-icon-title" >
+											<div class="video-icon-wrapper">
+												<span class="play-icon-wrapper">
+													<svg xmlns="http://www.w3.org/2000/svg" height="512" viewBox="0 0 64 64" width="512"><g id="Layer_7" data-name="Layer 7"><path d="m10 11h2v8h2v-8h2v-2h-6z"/><path d="m34 11h2v8h2v-8h2v-2h-6z"/><path d="m18 10v8a1 1 0 0 0 1 1h5v-2h-4v-2h4v-2h-4v-2h4v-2h-5a1 1 0 0 0 -1 1z"/><path d="m26 12a3 3 0 0 0 3 3 1 1 0 0 1 0 2h-3v2h3a3 3 0 0 0 0-6 1 1 0 0 1 0-2h3v-2h-3a3 3 0 0 0 -3 3z"/><path d="m7 23h36a1 1 0 0 0 1-1v-16a1 1 0 0 0 -1-1h-36a1 1 0 0 0 -1 1v16a1 1 0 0 0 1 1zm1-16h34v14h-34z"/><path d="m6 35h6a1 1 0 0 0 1-1v-5.59l2.71-2.7-1.42-1.42-2.7 2.71h-5.59a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1zm5-2h-2.59l2.59-2.59zm-1.41-4-2.59 2.59v-2.59z"/><path d="m12 47h-6a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0 -1-1zm-1 6h-4v-4h4z"/><path d="m13.29 35.29-1.7 1.71h-5.59a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-5.59l1.71-1.7zm-3.7 3.71-2.59 2.59v-2.59zm1.41 4h-2.59l2.59-2.59z"/><path d="m15 28h29v2h-29z"/><path d="m15 48h13v2h-13z"/><path d="m15 52h29v2h-29z"/><path d="m62.71 22.29-4-4a1 1 0 0 0 -1.42 0l-8.29 8.3v-24.59a1 1 0 0 0 -1-1h-46a1 1 0 0 0 -1 1v60a1 1 0 0 0 1 1h46a1 1 0 0 0 1-1v-24.59l13.71-13.7a1 1 0 0 0 0-1.42zm-28.37 22.46 1.91 1.91-3.35 1.44zm1.07-1.75 18.59-18.59 2.59 2.59-18.59 18.59zm11.59 18h-44v-58h44v25.59l-3.41 3.41h-28.59v2h26.59l-4 4h-22.59v2h20.59l-2 2h-18.59v2h17.48l-2.4 5.61a1 1 0 0 0 .92 1.39 1 1 0 0 0 .39-.08l7-3a1.11 1.11 0 0 0 .32-.21l8.29-8.3zm11-35.41-2.59-2.59 2.59-2.59 2.59 2.59z"/></g></svg>
+												</span>
+											</div>
+											<span class="title-video">{{book.title}}</span>
+										</div>
+				
+									 <div class="before-watch">
+										<p class="watch-s">Kitob</p>
+										<p class="minut-s">15:46</p>
+									 </div>
+									</div>
+								</a>
+							</div>
+						</div>
+						
+
+						<div class="column mt-3">
+							<p class="panel-title-v">Testlar</p>
+							<div v-for="test of item.collection" :key="test._id">
+								<a v-bind:href="'/test_course/' + test._id">
+									<div class="accordion-video-item" >
+										<div class="video-icon-title" v-on:click="videoActive( book.book )">
+											<div class="video-icon-wrapper">
+												
+													<svg xmlns="http://www.w3.org/2000/svg" height="512" viewBox="0 0 64 64" width="512"><g id="Layer_7" data-name="Layer 7"><path d="m10 11h2v8h2v-8h2v-2h-6z"/><path d="m34 11h2v8h2v-8h2v-2h-6z"/><path d="m18 10v8a1 1 0 0 0 1 1h5v-2h-4v-2h4v-2h-4v-2h4v-2h-5a1 1 0 0 0 -1 1z"/><path d="m26 12a3 3 0 0 0 3 3 1 1 0 0 1 0 2h-3v2h3a3 3 0 0 0 0-6 1 1 0 0 1 0-2h3v-2h-3a3 3 0 0 0 -3 3z"/><path d="m7 23h36a1 1 0 0 0 1-1v-16a1 1 0 0 0 -1-1h-36a1 1 0 0 0 -1 1v16a1 1 0 0 0 1 1zm1-16h34v14h-34z"/><path d="m6 35h6a1 1 0 0 0 1-1v-5.59l2.71-2.7-1.42-1.42-2.7 2.71h-5.59a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1zm5-2h-2.59l2.59-2.59zm-1.41-4-2.59 2.59v-2.59z"/><path d="m12 47h-6a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0 -1-1zm-1 6h-4v-4h4z"/><path d="m13.29 35.29-1.7 1.71h-5.59a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-5.59l1.71-1.7zm-3.7 3.71-2.59 2.59v-2.59zm1.41 4h-2.59l2.59-2.59z"/><path d="m15 28h29v2h-29z"/><path d="m15 48h13v2h-13z"/><path d="m15 52h29v2h-29z"/><path d="m62.71 22.29-4-4a1 1 0 0 0 -1.42 0l-8.29 8.3v-24.59a1 1 0 0 0 -1-1h-46a1 1 0 0 0 -1 1v60a1 1 0 0 0 1 1h46a1 1 0 0 0 1-1v-24.59l13.71-13.7a1 1 0 0 0 0-1.42zm-28.37 22.46 1.91 1.91-3.35 1.44zm1.07-1.75 18.59-18.59 2.59 2.59-18.59 18.59zm11.59 18h-44v-58h44v25.59l-3.41 3.41h-28.59v2h26.59l-4 4h-22.59v2h20.59l-2 2h-18.59v2h17.48l-2.4 5.61a1 1 0 0 0 .92 1.39 1 1 0 0 0 .39-.08l7-3a1.11 1.11 0 0 0 .32-.21l8.29-8.3zm11-35.41-2.59-2.59 2.59-2.59 2.59 2.59z"/></g></svg>
+							
+											</div>
+											<span class="title-video">{{test.name}}</span>
+										</div>
+				
+									 <div class="before-watch">
+										<p class="watch-s">Kitob</p>
+										<p class="minut-s">15:46</p>
+									 </div>
+									</div>
+								</a>
+							</div>
+						</div>
+						
+						<div class="column mt-3">
+							<p class="panel-title-v">Audiolar</p>
+							<div v-for="audio of item.audio" :key="audio._id">
+									<div class="accordion-video-item" v-on:click="videoActive( audio.audio )">
+										<div class="video-icon-title">
+											<span class="title-video">{{audio.title}}</span>
+										</div>
+									 <div class="before-watch"> 
+										<p class="watch-s">Audio</p>
+										<p class="minut-s">{{audio.audio_time}}</p>
+									 </div>
+									</div>
+									<div>
+										<audio controls controlsList="nodownload" style="width: 100%;" oncontextmenu="return false">
+											<source :src="'/uploads/video/' + audio.audio" type="audio/mp3">
+											<source :src="'/uploads/video/' + audio.audio" type="audio/x-m4a">
+										  </audio>
+									</div>
+							</div>
+						</div>
+					</div>
+			</div>
+				
+		</article>
+    </div>
+	
+	
+</section>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+
+
+
+  <script>
+	var app = new Vue({ 
+	el: '#app',
+	data: {
+		// style
+		isActivePdf: true,
+		active: true,
+		isActive: false, 
+		defaultVideo: '',
+		defaultBook: '',	
+		// style end
+		message: 'Hello Vue!',
+		infoCourses: 'info course',
+		accordion: 'videos',
+		videoOne: 'sds',
+	},
+	methods: {
+		videoActive( video ){
+             this.defaultVideo = video; 
+		},
+		bookActive( book ){
+             this.defaultBook = book; 
+			 this.isActivePdf = false;
+			 console.log(this.defaultBook);
+		},
+		bookRemove(){
+			this.isActivePdf = true;
+			location.reload();	
+		},
+		fullScreenBook(){
+			this.fullScreenActive = true
+		}
+	},
+    async mounted(){
+		const pathName = location.pathname 
+	    const slicePath = pathName.slice(21, pathName.length);
+	
+		let response = await axios.get(`/addCourse/material/${slicePath}`)
+			console.log("all", response.data)
+			this.infoCourses = response.data.infoCourse;
+			// console.log("response Info Course", this.infoCourses);
+			this.accordion = response.data.result;
+			console.log("response Result", this.accordion);
+			this.videoOne = response.data.result[0].video;
+			for(let keys of this.videoOne){
+				 this.defaultVideo = keys.video;
+				// console.log("response Video", keys.video);
+			}
+			// console.log(this.defaultVideo);
+			
+			$(document).ready(function(){
+			let acc = $(".accordions");
+			let chevronDown = $('.chevronDown');	 
+
+
+			acc.click(function(){
+			acc.not(this).next().slideUp(200)
+			$(this).next().slideToggle(200)
+			chevronDown.not(this).find(".chevronDown").removeClass("rotate-icon")
+			$(this).find(".chevronDown").toggleClass("rotate-icon")
+			}) 
+			})
+			
+
+	}
+	})
+  
+ 
+
+
+ 
+ 
+ 
+  </script>

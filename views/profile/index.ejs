@@ -1,0 +1,64 @@
+<div class="row">
+    <div class="col-md-8">
+        <h3>Mening profilim</h3>
+
+        <div class="mb-3 ml-2 mr-2 mt-5">
+            <label for="">Ism-familiyasi</label>
+            <input type="text" name="name" class="form-control" id="name" />
+        </div>
+
+        <div class="mb-3 ml-2 mr-2">
+            <label for="">Pochta manzili </label>
+            <input type="text" name="position" class="form-control" id="email" />
+        </div>
+
+        <div class="mb-3 ml-2 mr-2">
+            <label for="">Parol </label>
+            <input type="text" value="" name="position" class="form-control" id="password" />
+        </div>
+        <div class="mb-3 ml-2 mr-2">
+            <input type="hidden" name="position" value="<%- user._id  %> " class="form-control" id="id" />
+        </div>
+        <div class="mb-3 ml-2 mr-2">
+            <button type="button" onclick="updateData()" class="btn btn-warning">Saqlash</button>
+        </div>
+
+
+
+
+    </div>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/axios.min.js"></script>
+<script>
+    const name = document.getElementById("name")
+    const email = document.getElementById("email")
+    const password = document.getElementById("password")
+    const _id = document.getElementById("id").value
+    axios.get('/user/me').then((res) => {
+        const result = res.data.user
+        name.value = result.name
+        email.value = result.email
+    })
+    function updateData() {
+        axios.put(`/user/${_id}`, {
+            name: name.value,
+            email: email.value,
+            password: password.value,
+        })
+            .then((res) => {
+                location.reload()
+            })
+            .then((error) => {
+                console.log(error)
+            })
+    }
+
+
+
+
+
+
+</script>

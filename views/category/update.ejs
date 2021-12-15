@@ -1,0 +1,24 @@
+<div class="pt-3 pb-3 pl-3">
+    <h4>Kategoriyani tahrirlash</h4>
+</div>
+
+<div class="row">
+    <div class="col-md-12 mt-3"
+        style="display: flex; flex-direction: row; justify-content: space-between; flex-wrap: wrap;">
+        <form method="POST" action="<%=`/category/${result._id}?_method=PUT`%>" class="col-md-8">
+            <div class="mb-3">
+                <label>Kategoriya nomi</label>
+                <input name="name" type="text" class="form-control" value="<%= result.name %>"  />
+            </div>
+    
+            <button type="submit" class="btn btn-primary col-md-5 mt-3">Saqlash</button>
+        </form>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- Dropzone js -->

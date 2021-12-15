@@ -1,0 +1,132 @@
+<div class="row">
+    <div class="col-12">
+      <div style=" display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+        <h4 class="m-3" style="font-weight: 700;">Sinflar (Sinflashtirilgan)</h4>
+        <div>
+            <button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target=".bs-example-modal-lg">
+                Qo'shish
+            </button>
+            <a class="btn btn-warning waves-effect waves-light" href="/admin/formed">Orqaga</a>
+        </div>
+       
+      </div>
+  
+      <div class="card col-md-12 table-responsive">
+        <div class="card-body table-responsive">
+          <table id="datatable" class="table table-bordered text-center "
+            style="border-collapse: collapse; border-spacing: 0; width: 150%; flex-wrap: wrap;">
+            <thead>
+              <tr>
+                <th>Sinflar</th>
+                <th>Bo'lim nomi</th>
+                <th>Fan nomi</th>
+                <th style="width: 10%">Sana</th>
+                <th style="width: 10%">Sozlamalar</th>
+              </tr>
+            </thead>
+  
+            <tbody>
+              <% for(let item of result) {%>
+                <tr>
+                  <td style="font-weight: 700;"><%= item.name %> </td>
+                  <td><%= item.unit_ID.name %></td>
+                  <td><%= item.subject_ID.name %></td>
+                  <td><%= moment(item.date).format("DD-MM-YYYY") %></td>
+                  <td style=" display: flex; flex-direction: row; justify-content: space-around; align-items: center;">
+  
+                    <form method="POST" class="hidden-r" action="<%=`/formed_FORM/${item._id}?_method=DELETE`%>">
+                      <button type="submit" class="btn btn-danger">
+                        <i class="fa fa-trash"></i>
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+                <% } %>
+            </tbody>
+  
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- end col -->
+  </div>
+  
+  <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title mt-0" id="myLargeModalLabel">Bo'lim yaratish</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="/formed_FORM/add" method="POST">
+  
+  
+            <div class="mb-2 mt-2">
+              <label>Sinf kiriting</label>
+              <input type="text" name="name" class="form-control" required />
+            </div>
+            <!-- -------------------------------------- Kurs tanlash  -------------------------------------- -->
+            <div class="input-group mt-2" style="display: flex; flex-direction: column">
+              <label for="">Kerakli fanni tanlang</label>
+              <select name="subject_ID" class="form-control" value="" id="filterTheme">
+                <option style="font-weight: bold">Tanlash ...</option>
+                <% for (let item of subject) {%>
+                  <option value="<%= item._id %>">
+                    <%= item.name %>
+                  </option>
+                  <% } %>
+              </select>
+            </div>
+  
+            <div class="input-group mt-2" style="display: flex; flex-direction: column">
+              <label class="select_group_text">Kerakli bo'limni tanlang</label>
+              <select name="unit_ID" class="form-control select_group" value="">
+                <option class="tema" value=""></option>
+              </select>
+            </div>
+  
+            <button type="submit" class="btn btn-primary mt-3">Saqlash</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+  
+  <script>
+    // ==========================   Filtrlash   ==========================
+    const btnGroupTeacher = document.getElementById("filterTheme");
+    document.querySelector(".select_group").style.display = "none";
+    document.querySelector(".select_group_text").style.display = "none";
+    btnGroupTeacher.addEventListener("change", () => {
+      filterMe();
+    });
+    function filterMe() {
+      axios
+        .get(
+          `/formed_UNIT/filter/${btnGroupTeacher.value}`
+        )
+        .then(async (res) => {
+          const result = res.data
+          document.querySelector(".select_group").style.display = "block";
+          document.querySelector(".select_group_text").style.display = "block";
+          let select = $(".select_group");
+          await select.html("");
+          select.append(`<option style="font-weight: bold">Tanlash ...</option>`);
+          result.forEach((item) => {
+            select.append(
+              `
+            <option class="tema" value="${item._id}">` +
+              item.name +
+              "</option>"
+            );
+          });
+        });
+    }
+  </script>

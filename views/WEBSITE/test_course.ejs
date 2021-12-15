@@ -1,0 +1,190 @@
+<div class="leftSide_t">
+  <h2 class="subject_t" id="up-top">Testlar</h2>
+
+  <div class="testContainer_t">
+    <% for (let item of result) { %>
+    <div
+      id="card_t<%= result.indexOf(item) %>" 
+      class="testCard_t"
+      data="<%= result.indexOf(item) %>"
+    >
+      <div class="round_t"><%= result.indexOf(item) + 1 %></div>
+      <h3><%= item.question %></h3>
+      <form action="/post" method="POST">
+        <input
+          value="<%= item.options.a %>"
+          type="radio"
+          name="answer"
+          id="option<%= result.indexOf(item) %>1"
+        /><label for="option<%= result.indexOf(item) %>1"
+          ><h4>a)</h4>
+          <%= item.options.a %></label
+        >
+        <input
+          value="<%= item.options.b %>"
+          type="radio"
+          name="answer"
+          id="option<%= result.indexOf(item) %>2"
+        /><label for="option<%= result.indexOf(item) %>2"
+          ><h4>b)</h4>
+          <%= item.options.b %></label
+        >
+        <input
+          value="<%= item.options.c %>"
+          type="radio"
+          name="answer"
+          id="option<%= result.indexOf(item) %>3"
+        /><label for="option<%= result.indexOf(item) %>3"
+          ><h4>c)</h4>
+          <%= item.options.c %></label
+        >
+        <input
+          value="<%= item.options.d %>"
+          type="radio"
+          name="answer"
+          id="option<%= result.indexOf(item) %>4"
+        /><label for="option<%= result.indexOf(item) %>4"
+          ><h4>d)</h4>
+          <%= item.options.d %></label
+        >
+      </form> 
+    </div>
+  
+    <% } %>
+  </div>
+  <a href="#up-top"
+    ><button type="button" id="refresh">Testni boshidan boshlash</button></a
+  >
+</div>
+<div class="rightSide_t">
+  <i class="fas fa-arrow-circle-left"></i>
+  <div class="unresolved_t"></div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      renderMathInElement(document.body, {
+        // customised options
+        // • auto-render specific keys, e.g.:
+        delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+            {left: '\\(', right: '\\)', display: false},
+            {left: '\\[', right: '\\]', display: true}
+        ],
+        // • rendering keys, e.g.:
+        throwOnError : false
+      });
+  });
+
+    // DOM elementlari
+    const card = document.querySelectorAll(".testCard_t");
+  const burger = document.querySelector(".fa-arrow-circle-left");
+  const leftSide = document.querySelector(".leftSide_t");
+  const rightSide = document.querySelector(".rightSide_t");
+  const refresh = document.getElementById("refresh"); 
+  
+  // Qiymati keyinchalik ma'lum bo'ladigan ma'lumotlar uchun massivlar
+  let answers = [];
+  let sum = [];
+  let yourTrueAnswer = [];
+  
+  card.forEach((elem, ind, arr) => {
+    elem.addEventListener("click", () => {
+      const inPut = document.querySelectorAll(`#${arr[ind].id} form input`);
+      const label = document.querySelectorAll(`#${arr[ind].id} form label`);
+      inPut.forEach((t, index) => {
+        t.addEventListener("click", () => {
+          label[index].style.backgroundColor = "orange";
+          for (let i = 0; i < inPut.length; i++) {
+            if (inPut[i].checked !== true) {
+              label[i].style.backgroundColor = "red";
+            }
+            if (inPut[i].value == answers[ind]) {
+              label[i].style.backgroundColor = "#24b383";
+            }
+          }
+        });
+      });
+    });
+  });
+  
+  // Sidebarda yechilmagan testlarni ko'rsatish
+  for (let i = 0; i < card.length; i++) {
+    const round = document.createElement("div");
+    round.innerHTML = i + 1;
+    document.querySelector(".unresolved_t").appendChild(round);
+  }
+  
+  //Right sidebar
+  let b = 0;
+  burger.addEventListener("click", () => {
+    if (b % 2 == 0) {
+      rightSide.style.width = "250px";
+      leftSide.style.marginRight = "250px";
+    } else {
+      rightSide.style.width = "0";
+      leftSide.style.marginRight = "0";
+    }
+    b++;
+  });
+  
+  // Test belgilanganda card atrofida yashil to'siq hosil qilish
+  card.forEach((e) => {
+    e.children[2].addEventListener("click", () => {
+      e.style.border = "5px solid #24b383";
+      e.style.backgroundColor = "#f1f1f1";
+      let h = e.children[0];
+      document.querySelectorAll(".unresolved_t div")[
+        h.childNodes[0].data - 1
+      ].style.backgroundColor = "#24b383";
+    });
+  });
+  
+  // Progress bar ( natijalarni foizlarda ko'rsatish )
+  let i = 0;
+  let width = 0;
+  function move() {
+    if (i == 0 && width == 0) {
+      s();
+    } else {
+      i = 0;
+      width = 0;
+      s();
+    }
+  }
+  function s() {
+    let elem = document.getElementById("myBar_t");
+    width = (yourTrueAnswer.length / answers.length) * 100;
+    elem.style.width = width + "%";
+    function frame() {
+      if (i >= width) {
+        i = 0;
+        width = 0;
+        clearInterval(id);
+      } else {
+        i++;
+        document.getElementById("progress_t").innerHTML = i + "%";
+      }
+    }
+    let id = setInterval(frame, 3000 / width);
+  }
+  
+  // Backenddan "axios" orqali ma'lumotlarni olish
+  const pathNameTest = location.pathname;
+  const slicePath = pathNameTest.slice(13, pathNameTest.length);
+  function filter(res) {
+    let filterCollection = res.data.filter(
+      (item) => item.collection_ID == slicePath
+    );
+    for (let i = 0; i < filterCollection.length; i++) {
+      answers.push(filterCollection[i].answer);
+    }
+  }
+  axios.get(`/test_courseAll`).then(filter);
+  
+  refresh.addEventListener("click", () => {
+    location.reload();
+  });
+</script>

@@ -1,0 +1,169 @@
+<div class="row">
+    <div class="col-12 pt-2">
+      <div style=" display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+        <h4 class="m-3" style="font-weight: 700;">Mavzular (Sinflashtirilgan)</h4>
+        <div>
+          <button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target=".bs-example-modal-lg">Qo'shish</button>
+            <a class="btn btn-warning waves-effect waves-light" href="/admin/formed">Orqaga</a>
+        </div>
+      </div>
+      <div class="mt-2"></div>
+      <div class="card col-md-12 table-responsive">
+        <div class="card-body table-responsive">
+          <table id="datatable" class="table table-bordered text-center "
+            style="border-collapse: collapse; border-spacing: 0; width: 150%; flex-wrap: wrap;">
+            <thead>
+              <tr>
+                <th>Mavzu</th>
+                <th>Sinf</th>
+                <th>Bo'lim</th>
+                <th>Fan</th>
+                <th style="width: 13%">Sana</th>
+                <th style="width: 7%">Sozlama</th>
+              </tr>
+            </thead>
+  
+            <tbody>
+              <% for(const item of result){%>
+              <tr>
+                <td style="font-weight: 700;"><%= item.name %></td>
+                <td><%= item.form_ID.name %></td>
+                <td><%= item.unit_ID.name %></td>
+                <td><%= item.subject_ID.name %></td>
+                <td><%= moment(item.date).format("DD/MM/YYYY") %></td>
+                <td>
+                  <form
+                    method="POST"
+                    class="hidden-r"
+                    action="<%=`/formed_THEME/${item._id}?_method=DELETE`%>"
+                  >
+                    <button type="submit" class="btn btn-danger">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </form>
+                </td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--------------------------------    Modal - "create" ------------------------------------>
+  <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title mt-0" id="myLargeModalLabel">Mavzu yaratish</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="/formed_THEME/add" method="POST">
+
+            <div class="mb-3">
+                <input type="text" name="name" class="form-control" placeholder="Mavzu nomini kiriting"/>
+              </div> 
+            <!-- -------------------------------------- Subject  -------------------------------------- -->
+            <div class="input-group mb-3">
+              <select name="subject_ID" class="form-control" value="" id="changeFilterGroup">
+                <option style="font-weight: bold">Kerakli fanni tanlang</option>
+                <% for (let item of subject) {%>
+                <option value="<%= item._id %>"><%= item.name %></option>
+                <% } %>
+              </select>
+            </div>
+            <!----------------------------------------  Unit -------------------------------------- -->
+            <div class="input-group mb-3 ">
+              <select  name="unit_ID"  class="form-control select_group"  value=""  id="changeFilterTheme" >
+                <option class="tema" value=""></option>
+              </select>
+            </div>
+  
+            <!-- -------------------------------------- Theme -------------------------------------- -->
+            <div class="input-group mb-3 ">
+              <select name="form_ID" class="form-control select_group2" value="">
+                <option class="tema" value=""></option>
+              </select>
+            </div>
+  
+  
+  
+  
+            <button type="submit" class="btn btn-success col-md-2">Save</button>
+            <!-- <button type="reset" class="btn btn-danger col-md-2">Clear</button> -->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+  
+  <script>
+  
+    
+  
+  // Teacher ning ID si bo'yicha hamma guruhlarini olish
+    const btnGroupTeacher = document.getElementById("changeFilterGroup");
+    btnGroupTeacher.addEventListener("change", () => {
+      document.querySelector(".select_group2").style.display = 'none'
+      filterMe();
+    });
+    document.querySelector(".select_group").style.display = 'none'
+    function filterMe() {
+      axios.get(`/formed_UNIT/filter/${btnGroupTeacher.value}`).then(async (res) => {
+        const result =  res.data 
+        document.querySelector(".select_group").style.display = 'block'
+        let select = $(".select_group");
+        await select.html("")
+        select.append(`<option style="font-weight: bold">Kerakli bo'limni tanlang</option>`)
+          result.forEach(item => {
+          select.append(`
+          <option class="tema" value="${item._id}">` + item.name + '</option>'
+          )
+        });
+      });
+    }
+  
+    // Guruhning ning ID si bo'yicha hamma mavzularni olish
+  
+    const btnThemeGroup = document.getElementById("changeFilterTheme");
+    btnThemeGroup.addEventListener("change", () => {
+      filterYou();
+    });
+    document.querySelector(".select_group2").style.display = 'none'
+    function filterYou() {
+      axios.get(`/formed_FORM/filter/${btnThemeGroup.value}`).then(async (res) => {
+        const result =  res.data 
+        document.querySelector(".select_group2").style.display = 'block'
+        let select = $(".select_group2")
+        await select.html("")
+        select.append(`<option style="font-weight: bold">Kerakli sinfni tanlang</option>`)
+          result.forEach(item => {
+          select.append(`
+          <option class="tema" value="${item._id}">` + item.name + '</option>'
+          )
+        });
+      });
+    }
+  
+  
+  
+  
+  
+  
+  </script>
+  

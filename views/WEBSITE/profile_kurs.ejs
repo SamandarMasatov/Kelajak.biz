@@ -1,0 +1,87 @@
+    <div class="profil_title">
+        <div class="container">
+            <div class="road">
+                <a href="#">Profil / </a>
+                <b>Student</b>
+            </div>
+            <div class="id_pupil">
+                <div class="left">
+                    <img src="/website/img/profil.png" alt="">
+                </div>
+                <div class="right">
+                    <h1><%= user.name  %> </h1>
+                    <h2>UID: <%= user.uid %> </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="profile_kurs mb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 order-1 order-md-2 profile_tab_div">
+					<div class="tab_index_all">
+						<ul>
+							<li class="activ">Kurslarim</li>
+						</ul>
+						<div class="tab_con">
+							<nav class="active_nav">
+								<div class="profil_info_cours">
+									<div class="row mycourse-s">
+										<% if(result == "") {%>
+											<h1 style="color: red;">Sotib olinga kurs mavjud emas</h1>
+										<% }else {%>
+											<% for(let item of result) {%> 
+												<div class="col-md-5" style="margin-bottom: 20px;">
+													<div class="img_left">
+														<img src="/uploads/course/<%= item.course_ID.image %>" alt=""> 
+													</div>
+												</div> 
+												<div class="col-md-7">
+													<h1><a href="/addCourse/my_course/<%= item.course_ID._id %> "><%= item.course_ID.title %></a></h1>
+													<div class="info_all info_one">
+														<h2>Umumiy baho: <i class="fa fa-star sariq"></i> <%= item.course_ID.rating %></h2>
+													</div>
+													<div class="info_all info_two">
+														<span><img src="/website/img/group_black.png" alt=""></span>
+														<h2>Kursni sotib olganlar soni  <%= item.course_ID.moreSoldCourse %></h2>
+													</div>
+													<div class="info_all info_two">
+														<span><img src="/website/img/group_black.png" alt=""></span>
+														<h2>Kursni muallifi:  <%= item.course_ID.author_name %></h2>
+													</div>
+													<div class="info_all info_three">
+														<span><img src="/website/img/calendar_black.png" alt=""></span>
+														<h2>Davomiyligi: cheklanmagan</h2>
+													</div>
+													<div class="info_all info_four">
+														<h2>Kursni baholang:</h2>
+														<span>
+															<i class="fa fa-star"></i>
+															<i class="fa fa-star"></i>
+															<i class="fa fa-star"></i>
+															<i class="fa fa-star"></i>
+															<i class="fa fa-star"></i>
+														</span>
+													</div>
+													<div class="info_all info_five">
+														<h2>Yaratilgan: <%= moment(item.course_ID.date).format("DD-MM-YYYY") %></h2>
+													</div>
+												</div>
+											<% } %>
+									    <% } %>   
+										 
+									</div>
+								</div>
+
+                            </nav>   
+
+						
+						</div>
+					</div>
+				</div>
+            </div>
+        </div>
+    </div>
+
+	

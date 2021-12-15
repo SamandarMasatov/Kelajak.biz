@@ -1,0 +1,192 @@
+<style>
+    .file-upload {
+      background-color: #ffffff;
+      width: 600px;
+      margin: 0 auto;
+      padding: 10px;
+    }
+  
+    .file-upload-btn {
+      width: 100%;
+      margin: 0;
+      color: #fff;
+      background: #30419b;
+      border: none;
+      padding: 10px;
+      border-radius: 4px;
+      border-bottom: 4px solid #30419b;
+      transition: all 0.2s ease;
+      outline: none;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+  
+    .file-upload-btn:hover {
+      background: #30419b;
+      color: #ffffff;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+  
+    .file-upload-btn:active {
+      border: 0;
+      transition: all 0.2s ease;
+    }
+  
+    .file-upload-content {
+      display: none;
+      text-align: center;
+    }
+  
+    .file-upload-input {
+      position: absolute;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      outline: none;
+      opacity: 0;
+      cursor: pointer;
+    }
+  
+    .image-upload-wrap {
+      margin-top: 20px;
+      border: 4px dashed #30419b;
+      position: relative;
+    }
+  
+    .image-dropping,
+    .image-upload-wrap:hover {
+      background-color: #30419b;
+    }
+  
+    .image-title-wrap {
+      padding: 0 15px 15px 15px;
+      color: #222;
+    }
+  
+    .drag-text {
+      text-align: center;
+    }
+  
+    .drag-text h3 {
+      font-weight: 100;
+      text-transform: uppercase;
+      color: #000;
+      padding: 60px 0;
+    }
+  
+    .file-upload-image {
+      max-height: 300px;
+      max-width: 400px;
+      margin: auto;
+      padding: 20px;
+    }
+  
+    .remove-image {
+      width: 400px;
+      margin: 0;
+      color: rgb(0, 0, 0);
+      background: #30419b;
+      border: none;
+      padding: 10px;
+      border-radius: 4px;
+      border-bottom: 4px solid #30419b;
+      transition: all 0.2s ease;
+      outline: none;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+  
+    .remove-image:hover {
+      background: #30419b;
+      color: #ffffff;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+  
+    .remove-image:active {
+      border: 0;
+      transition: all 0.2s ease;
+    }
+</style>
+  
+
+<div class="pt-3 pb-3 pl-3"><h4 >Qo'llanmani tahrirlash</h4></div>
+
+<div class="row" >
+    <div class="col-md-12 mt-3"  style="display: flex; flex-direction: row; justify-content: space-between; flex-wrap: wrap;">
+        <form method="POST"  action="<%=`/document/${result._id}?_method=PUT`%>" class="col-md-6" ref="uploadForm" encType="multipart/form-data">
+            <div class="mb-3">
+                <label>Qo'llanma nomi</label>
+                <input type="text" class="form-control" value="<%= result.title %>" name="title"/>
+            </div>
+            <div class="qmb-3">
+                <label>Qo'llanma haqida</label>
+                <textarea class="form-control"  name="description"  cols="30" rows="10"><%= result.description %></textarea>
+            </div>
+
+
+            <div class="input-group mb-3 pb-3 mt-2">
+                <div class="file-upload">
+                <div class="image-upload-wrap">
+                    <input name="pdf" class="file-upload-input" type="file" onchange="readURL(this);" accept=".pdf" multiple />
+                    <div class="drag-text">
+                    <h3>Qo'llanmani tanlang</h3>
+                    </div>
+                </div>
+                <div class="file-upload-content">
+                    <!-- <video class="file-upload-image" src="#" alt="your image"></video> -->
+                    <div class="file-upload-image"></div>
+                    <div class="image-title-wrap">
+                    <button type="button" onclick="removeUpload()" class="remove-image" >
+                        Remove <span class="image-title">Uploaded Image</span>
+                    </button>
+                    </div>
+                </div>
+                </div>
+            </div>
+           
+            <button type="submit" class="btn btn-primary col-md-5 mt-3">Saqlash</button>
+        </form>
+        <div class="col-md-6">
+            <iframe class="col" style="height: 100vh;" src="<%=`/uploads/books/${result.pdf}`%>" ></iframe>
+        </div>
+      
+    </div>
+    
+</div>
+
+
+<script>
+    function readURL(input) {
+if (input.files && input.files[0]) {
+  var reader = new FileReader();
+
+  reader.onload = function (e) {
+    $(".image-upload-wrap").hide();
+
+    $(".file-upload-image").attr("src", e.target.result);
+    $(".file-upload-content").show();
+
+    $(".image-title").html(input.files[0].name);
+  };
+
+  reader.readAsDataURL(input.files[0]);
+} else {
+  removeUpload();
+}
+}
+
+function removeUpload() {
+$(".file-upload-input").replaceWith($(".file-upload-input").clone());
+$(".file-upload-content").hide();
+$(".image-upload-wrap").show();
+}
+$(".image-upload-wrap").bind("dragover", function () {
+$(".image-upload-wrap").addClass("image-dropping");
+});
+$(".image-upload-wrap").bind("dragleave", function () {
+$(".image-upload-wrap").removeClass("image-dropping");
+});
+</script>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    <%= title %>
+  </title> 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="/assets/css/metismenu.min.css" rel="stylesheet" type="text/css" />
+  <link href="/assets/css/icons.css" rel="stylesheet" type="text/css" />
+  <link href="/website/css/mdb.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" />
+  <link href="/website/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="/website/css/font-awesome.css" />
+  <link rel="stylesheet" type="text/css" href="/website/css/owl.carousel.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/website/css/jquery-editable-select.css" />
+  <link rel="stylesheet" href="/website/css/style.css" />
+  <link rel="stylesheet" href="/website/css/media.css" />
+  <link rel="stylesheet" href="/website/css/test.css" />
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css"
+    integrity="sha384-D+9gmBxUQogRLqvARvNLmA9hS2x//eK1FhVb9PiU86gmcrBrJAQT8okdJ4LMp2uv" crossorigin="anonymous">
+
+  <style>
+    .alert {
+      position: absolute;
+      top: 20%;
+      left: 10%;
+      right: 10%;
+      padding: 20px;
+      background-color: #24B383;
+      color: rgb(255, 255, 255);
+      width: 80%;
+      margin: 0 auto;
+      height: 300px;
+      z-index: 10;
+      display: none;
+      font-size: 14px;
+    }
+
+    .alert1 {
+      position: absolute;
+      top: 20%;
+      left: 10%;
+      right: 10%;
+      padding: 20px;
+      background-color: #24B383;
+      color: rgb(255, 255, 255);
+      width: 80%;
+      margin: 0 auto;
+      height: 100px;
+      z-index: 10;
+      display: none;
+      font-size: 14px;
+    }
+
+    .alert2 {
+      position: absolute;
+      top: 20%;
+      left: 10%;
+      right: 10%;
+      padding: 20px;
+      background-color: #24B383;
+      color: rgb(255, 255, 255);
+      width: 80%;
+      margin: 0 auto;
+      height: 100px;
+      z-index: 10;
+      display: none;
+      font-size: 14px;
+    }
+
+    .closebtn {
+      margin-left: 15px;
+      color: rgb(255, 255, 255);
+      font-weight: bold;
+      float: right;
+      font-size: 17px;
+      line-height: 20px;
+      cursor: pointer;
+      transition: 0.5s;
+    }
+
+    .closebtn:hover {
+      color: black;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="fixvh"></div>
+  <div class="fixtop"></div>
+  <!-- login -->
+  <!-- /////////////////////////////////////////////////////// -->
+  <!-- Start Pop Up -->
+  <!-- /////////////////////////////////////////////////////// -->
+  <div id="container"></div>
+  <div class="popup center-p">
+    <i class="fas fa-times" id="exit"></i>
+    <div class="icon-p">
+      <i class="fas fa-shopping-cart"></i>
+    </div>
+    <div class="title-p">Kurs sotib olish</div>
+    <div class="description-p">
+
+
+      <input type="number" id="phone_content" placeholder="Telefon raqamingiz" />
+      <textarea id="message_content" cols="30" rows="10" placeholder="Savolingizni yozing"></textarea>
+    </div>
+    <p class="popup-warning text-warning">
+      Kurslarni sotib olish uchun siz ro'yhatdan o'tgan bo'lishingiz kerak!
+      Agar ro'yhatdan o'tmagan bo'lsangiz avval ro'yhatdan o'ting.
+    </p>
+    <div class="dismiss-btn">
+      <button onclick="SendContact()" id="dismiss-popup-btn">
+        Jo'natish
+      </button>
+    </div>
+  </div>
+  <button id="open-popup-btn"><i class="fas fa-user"></i></button>
+  <!-- /////////////////////////////////////////////////////// -->
+  <!-- End Pop Up -->
+  <!-- /////////////////////////////////////////////////////// -->
+
+
+  <div id="alert" class="alert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    <h6>Adminga habar jo'natish uchun quyidagilarni amalga oshirish</h6> <br>
+    <p>1. Ro'yhatdan o'ting</p>
+    <p>2. "Kirish" tugmasi orqali profilingizga kiring</p>
+    <p>3. Adminga habar jo'nating</p>
+    <strong>Tez orada admin siz bilan bog'lanadi</strong>
+  </div>
+
+
+  <div id="alert1" class="alert1">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    <strong>Xabar jo'natildi. Tez orada admin siz bilan bog'lanadi</strong>
+  </div>
+
+
+  <div class="login login1">
+    <div class="login_index">
+      <i class="exit"><img src="/website/img/exit.png" alt="" /></i>
+      <div class="logo">
+        <a href="/">
+          <h2 class="logo-k">Kelajak.biz</h2>
+        </a>
+      </div>
+      <div class="item">
+        <h5>Ro'yxatdan o'tish</h5>
+
+        <form action="/user/register" method="POST">
+          <div class="inputdiv">
+            <span class="img">
+              <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M7.5 0C10.0888 0 12.1875 2.09865 12.1875 4.6875C12.1875 7.27635 10.0888 9.375 7.5 9.375C4.91115 9.375 2.8125 7.27635 2.8125 4.6875C2.8125 2.09865 4.91115 0 7.5 0ZM12.8696 9.77991L10.7804 9.25761C8.58536 10.8364 5.92477 10.4841 4.21963 9.25761L2.13038 9.77991C0.87835 10.0929 0 11.2179 0 12.5084V13.5938C0 14.3704 0.62959 15 1.40625 15H13.5938C14.3704 15 15 14.3704 15 13.5938V12.5084C15 11.2179 14.1216 10.0929 12.8696 9.77991Z"
+                  fill="#24B383" />
+              </svg>
+            </span>
+            <input name="name" placeholder="Ism va familiya" type="text" />
+          </div>
+
+          <div class="inputdiv">
+            <span class="img">
+              <svg width="15" height="13" viewBox="0 0 19 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M17.9608 4.62292C18.1003 4.5099 18.3077 4.61562 18.3077 4.79427V12.25C18.3077 13.2161 17.5389 14 16.5913 14H1.71635C0.76878 14 0 13.2161 0 12.25V4.79792C0 4.61562 0.203816 4.51354 0.346845 4.62656C1.14781 5.26094 2.2098 6.06667 5.85703 8.76823C6.61151 9.32969 7.88447 10.5109 9.15385 10.5036C10.4304 10.5146 11.7284 9.30781 12.4542 8.76823C16.1015 6.06667 17.1599 5.25729 17.9608 4.62292ZM9.15385 9.33333C9.98341 9.34792 11.1777 8.26875 11.7784 7.82396C16.5234 4.31302 16.8846 4.00677 17.9787 3.13177C18.1861 2.96771 18.3077 2.7125 18.3077 2.44271V1.75C18.3077 0.783854 17.5389 0 16.5913 0H1.71635C0.76878 0 0 0.783854 0 1.75V2.44271C0 2.7125 0.121575 2.96406 0.328966 3.13177C1.42314 4.00312 1.78429 4.31302 6.52927 7.82396C7.12999 8.26875 8.32428 9.34792 9.15385 9.33333Z"
+                  fill="#999999" />
+              </svg>
+            </span>
+            <input name="email" placeholder="E-mail" type="email" />
+          </div>
+
+          <div class="inputdiv">
+            <span class="img">
+              <svg width="15" height="17" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M15.1786 7.875H14.2679V5.34375C14.2679 2.39766 11.6799 0 8.5 0C5.32009 0 2.73214 2.39766 2.73214 5.34375V7.875H1.82143C0.815848 7.875 0 8.63086 0 9.5625V16.3125C0 17.2441 0.815848 18 1.82143 18H15.1786C16.1842 18 17 17.2441 17 16.3125V9.5625C17 8.63086 16.1842 7.875 15.1786 7.875ZM11.2321 7.875H5.76786V5.34375C5.76786 3.94805 6.99353 2.8125 8.5 2.8125C10.0065 2.8125 11.2321 3.94805 11.2321 5.34375V7.875Z"
+                  fill="#999999" />
+              </svg>
+            </span>
+            <input name="password" placeholder="Parol" type="password" />
+          </div>
+
+          <div class="inputdiv">
+            <span class="img">
+              <svg width="15" height="13" viewBox="0 0 19 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M17.9608 4.62292C18.1003 4.5099 18.3077 4.61562 18.3077 4.79427V12.25C18.3077 13.2161 17.5389 14 16.5913 14H1.71635C0.76878 14 0 13.2161 0 12.25V4.79792C0 4.61562 0.203816 4.51354 0.346845 4.62656C1.14781 5.26094 2.2098 6.06667 5.85703 8.76823C6.61151 9.32969 7.88447 10.5109 9.15385 10.5036C10.4304 10.5146 11.7284 9.30781 12.4542 8.76823C16.1015 6.06667 17.1599 5.25729 17.9608 4.62292ZM9.15385 9.33333C9.98341 9.34792 11.1777 8.26875 11.7784 7.82396C16.5234 4.31302 16.8846 4.00677 17.9787 3.13177C18.1861 2.96771 18.3077 2.7125 18.3077 2.44271V1.75C18.3077 0.783854 17.5389 0 16.5913 0H1.71635C0.76878 0 0 0.783854 0 1.75V2.44271C0 2.7125 0.121575 2.96406 0.328966 3.13177C1.42314 4.00312 1.78429 4.31302 6.52927 7.82396C7.12999 8.26875 8.32428 9.34792 9.15385 9.33333Z"
+                  fill="#999999" />
+              </svg>
+            </span>
+            <input name="phone" placeholder="Telefon" type="phone" />
+          </div>
+
+          <button>Ro'yhatdan o'tish</button>
+        </form>
+      </div>
+      <div class="bottom">
+        <div class="botitem">
+          <h3>Ro'yxatdan o'tganmisiz?</h3>
+          <span class="enter2"> Kirish </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="login login2">
+    <div class="login_index">
+      <i class="exit"><img src="/website/img/exit.png" alt="" /></i>
+      <div class="logo">
+        <a href="/">
+          <h2 class="logo-k">Kelajak.biz</h2>
+        </a>
+      </div>
+      <div class="item">
+        <h5>Tizimga kirish</h5>
+
+        <form method="POST" action="/user/login">
+          <div class="inputdiv">
+            <span class="img">
+              <svg width="15" height="13" viewBox="0 0 19 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M17.9608 4.62292C18.1003 4.5099 18.3077 4.61562 18.3077 4.79427V12.25C18.3077 13.2161 17.5389 14 16.5913 14H1.71635C0.76878 14 0 13.2161 0 12.25V4.79792C0 4.61562 0.203816 4.51354 0.346845 4.62656C1.14781 5.26094 2.2098 6.06667 5.85703 8.76823C6.61151 9.32969 7.88447 10.5109 9.15385 10.5036C10.4304 10.5146 11.7284 9.30781 12.4542 8.76823C16.1015 6.06667 17.1599 5.25729 17.9608 4.62292ZM9.15385 9.33333C9.98341 9.34792 11.1777 8.26875 11.7784 7.82396C16.5234 4.31302 16.8846 4.00677 17.9787 3.13177C18.1861 2.96771 18.3077 2.7125 18.3077 2.44271V1.75C18.3077 0.783854 17.5389 0 16.5913 0H1.71635C0.76878 0 0 0.783854 0 1.75V2.44271C0 2.7125 0.121575 2.96406 0.328966 3.13177C1.42314 4.00312 1.78429 4.31302 6.52927 7.82396C7.12999 8.26875 8.32428 9.34792 9.15385 9.33333Z"
+                  fill="#999999" />
+              </svg>
+            </span>
+            <input name="email" placeholder="E-mail" type="email" />
+          </div>
+
+          <div class="inputdiv">
+            <span class="img">
+              <svg width="15" height="17" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M15.1786 7.875H14.2679V5.34375C14.2679 2.39766 11.6799 0 8.5 0C5.32009 0 2.73214 2.39766 2.73214 5.34375V7.875H1.82143C0.815848 7.875 0 8.63086 0 9.5625V16.3125C0 17.2441 0.815848 18 1.82143 18H15.1786C16.1842 18 17 17.2441 17 16.3125V9.5625C17 8.63086 16.1842 7.875 15.1786 7.875ZM11.2321 7.875H5.76786V5.34375C5.76786 3.94805 6.99353 2.8125 8.5 2.8125C10.0065 2.8125 11.2321 3.94805 11.2321 5.34375V7.875Z"
+                  fill="#999999" />
+              </svg>
+            </span>
+            <input name="password" placeholder="Parol" type="password" />
+          </div>
+
+          <button type="submit">Tizimga kirish</button>
+        </form>
+        <p>
+          Ro'yhatdan o'tmagan bo'lsangiz , avval ro'yhatdan o'ting
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="row header-s">
+        <div class="col-3 pl-0">
+          <a href="/">
+            <h2 class="logo-k">Kelajak.biz</h2>
+          </a>
+        </div>
+
+        <div class="col-md-9 col-12 h_right header_media">
+          <i class="fa fa-close exit_media"></i>
+          <ul id="menu">
+
+            <li><a href="/">Bosh sahifa</a></li>
+            <li><a href="/course">Kurslar</a></li>
+            <li><a href="/free_test">Testlar</a></li>
+            <li><a href="#">Yangiliklar</a></li>
+            <li><a href="#">Aloqa</a></li>
+            
+          </ul>
+
+
+        </div>
+
+
+
+        <div class="bar_div">
+          <span class="bars_header">
+            <i class="fa fa-bars"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+
+   
+  </header>
+
+  <!-- Header 2 -->
+
+  <%- body %>
+
+    <!-- <footer>
+      <div class="container">
+        <div class="row top">
+          <div class="col-md-3">
+            <div class="logo">
+              <a href="/">
+                <h2 class="logo-k">Kelajak.biz</h2>
+              </a>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <h1>BO'LIMLAR</h1>
+            <div class="links">
+              <a href="#">Kurslar</a>
+              <a href="#">Testlar</a>
+              <a href="#">Yangiliklar</a>
+              <a href="#">Aloqa</a>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <h1>Xizmatlar</h1>
+            <div class="links">
+              <a href="#">O'quv markazi</a>
+              <a href="#">Online ta'lim</a>
+              <a href="#">Saytda reklama berish</a>
+              <a href="#">Biz bilan bog'lanish</a>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <h1>Biz ijtimoiy tarmoqlarda</h1>
+            <div class="social">
+              <span><a target="_blank" href="https://www.facebook.com/muhriddin.jumayev.9693"><img
+                    src="/website/img/face.png" alt="" /></a></span>
+              <span><a target="_blank" href="https://t.me/Kelajak_Biz_edu"><img src="/website/img/tg.png"
+                    alt="" /></a></span>
+              <span><a target="_blank" href="https://www.instagram.com/Kelajak_jmOTM/"><img src="/website/img/insta.png"
+                    alt="" /></a></span>
+              <span><a target="_blank" href="https://www.youtube.com/watch?v=jDn3Sjg_ryA&ab_channel=Kelajak.Biz"><img
+                    src="/website/img/Daco_492.png" width="27" height="20" alt="" /></a></span>
+              <span><a target="_blank" href="https://www.tiktok.com/@kelajak_biz" alt=""><img
+                    src="/website/img/tiktok-logo_orig.png" width="27" height="30" alt="" /></a></span>
+            </div>
+            <h4 style="color: #fff; margin-top: 8px; font-size: 20px; letter-spacing: 1px;">+998 99 4275936</h4>
+            <h4 style="color: #fff; margin-top: 8px; font-size: 20px; letter-spacing: 1px;">+998 99 7737374</h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 bottom">
+            <div class="item">
+              <h4>2021 © Kelajak.biz . Barcha huquqlar himoyalangan.</h4>
+            </div>
+            <div class="item">
+              <h4>Developer:</h4>
+              <a target="_blank" href="https://t.me/SamandarProgrammer">Samandar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer> -->
+
+
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.js"
+      integrity="sha384-483A6DwYfKeDa0Q52fJmxFXkcPCFfnXMoXblOkJ4JcA8zATN6Tm78UNL72AKk+0O"
+      crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/contrib/auto-render.min.js"
+      integrity="sha384-yACMu8JWxKzSp/C1YV86pzGiQ/l1YUfE8oPuahJQxzehAjEt2GiQuy/BIvl9KyeF" crossorigin="anonymous"
+      onload="renderMathInElement(document.body);"></script>
+
+    <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script type="text/javascript" src="/website/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="/website/js/popper.min.js"></script>
+    <script type="text/javascript" src="/website/js/mdb.min.js"></script>
+    <script type="text/javascript" src="/website/js/owl.carousel.min.js"></script>
+    <script src="/website/js/jquery.sumoselect.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+      crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="/website/js/bootstrap.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script> -->
+    <script src="/website/js/main2.js"></script>
+    <script src="/website/js/accordion.js"></script>
+
+    <script src="/website/js/main.js"></script>
+    <script>
+      const URL = "kelajak.biz";
+
+      document.getElementById('alert').style.display = "none"
+      document.getElementById('alert1').style.display = "none"
+      function SendContact() {
+        if (!document.getElementById("user_id").value) {
+          document.getElementById('alert').style.display = "block"
+        } else {
+          const userID = document.getElementById("user_id").value;
+          const message = document.getElementById("message_content").value;
+          const phone = document.getElementById("phone_content").value;
+          axios({
+            url: `/contact/add`,
+            method: "POST",
+            data: {
+              username: userID,
+              message: message,
+              phone: phone,
+            },
+          }).then((res) => {
+
+            document.getElementById('alert1').style.display = "block"
+            // location.reload();
+
+          });
+        }
+      }
+    </script>
+</body>
+
+</html>

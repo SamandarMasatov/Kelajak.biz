@@ -1,0 +1,73 @@
+<div class="col-md-12">
+    <div class="card m-b-30">
+      <div class="card-body">
+        <h4 class="mt-2 mb-4">Ushbu test haqida malumot</h4>
+        <ul class="nav nav-pills nav-justified" role="tablist">
+          <li class="nav-item waves-effect waves-light">
+            <a class="nav-link active" data-toggle="tab" href="#home-1" role="tab">
+              <span class="d-none d-md-block font-14">Umumiy malumot</span>
+              <span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
+            </a>
+          </li>
+          
+        </ul>
+        <div class="tab-content">
+
+          <div class="tab-pane active p-3" id="home-1" role="tabpanel">
+            <table class="table table-bordered border-primary text-center">
+              <thead>
+                <tr>
+                  <th scope="col" style="font-weight: 600; width: 35%;">Bo'limlar</th>
+                  <th scope="col" style="font-weight: 600;">Ma'lumotlar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Test savoli</td>
+                  <td><%= result.question %></td>
+                </tr>
+                <tr>
+                    <td>A variant</td>
+                    <td><%= result.options.a %></td>
+                  </tr>
+                  <tr>
+                    <td>B variant</td>
+                    <td><%= result.options.b %></td>
+                  </tr>
+                  <tr>
+                    <td>C variant</td>
+                    <td><%= result.options.c %></td>
+                  </tr>
+                  <tr>
+                    <td>D variant</td>
+                    <td><%= result.options.d %></td>
+                  </tr>
+                  <tr>
+                    <td>Qaysi kursga tegishli?</td>
+                    <td><%= result.course_ID.title %></td>
+                  </tr>
+                  <tr>
+                    <td>Qaysi mavzuga tegishli?</td>
+                    <td><%= result.theme_ID.name %></td>
+                  </tr>
+                  <tr>
+                    <td>Qaysi kolleksiyaga tegishli?</td>
+                    <td><%= result.collection_ID.name %></td>
+                  </tr>
+                
+                  <tr>
+                    <td>Yaratilgan sana</td>
+                    <td><%= moment(result.date).format("DD-MM-YYYY - hh:mm:ss") %></td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        
+  
+          
+  
+        </div>
+      </div>
+    </div>
+  </div>
+  

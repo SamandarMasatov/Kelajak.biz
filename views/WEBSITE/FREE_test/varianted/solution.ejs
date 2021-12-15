@@ -1,0 +1,737 @@
+<style>
+    @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
+  * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif; 
+  }
+  
+  body {
+  display: flex;
+  width: 100%;
+  background-color: wheat;
+  }
+  
+  /* ///////////////////////////////////////////////////////////////////////////////// */
+  /* ///////////////////////////////////////////////////////////////////////////////// */
+  
+  #createElement {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+  overflow-y: scroll;
+  height: 50vh;
+  }
+  #createElement table {
+  text-align: left;
+  }
+  #createElement table,
+  th,
+  td {
+  padding: 3px;
+  border-radius: 3px;
+  border: 1px solid #24b383;
+  border-collapse: collapse;
+  }
+  .center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  }
+  .con {
+  backdrop-filter: blur(5px);
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  transition: all 300ms;
+  z-index: 1000;
+  }
+  .popup {
+  width: 500px;
+  /* height: 280px; */
+  padding: 30px 20px;
+  background: #f5f5f5;
+  border: 1px solid #24b383;
+  border-radius: 10px;
+  box-sizing: border-box;
+  z-index: 1000;
+  text-align: center;
+  opacity: 0;
+  top: -200%;
+  transform: translate(-50%, -50%) scale(0.5);
+  transition: opacity 300ms ease-in-out, top 1000ms ease-in-out,
+    transform 1000ms ease-in-out;
+  }
+  .popup.active {
+  position: fixed;
+  opacity: 1;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 300ms cubic-bezier(0.18, 0.89, 0.43, 1.19);
+  }
+  .popup .icon {
+  margin: 5px 0px;
+  width: 50px;
+  height: 50px;
+  border: 2px solid #24b383;
+  text-align: center;
+  display: inline-block;
+  border-radius: 50%;
+  line-height: 60px;
+  }
+  .popup .icon i.fas {
+  font-size: 30px;
+  color: #24b383;
+  }
+  .popup .title {
+  margin: 5px 0px;
+  font-size: 30px;
+  font-weight: 600;
+  }
+  .popup .description {
+  color: #222;
+  font-size: 15px;
+  padding: 5px;
+  }
+  .popup .description input,
+  .popup .description textarea {
+  padding: 5px 10px;
+  margin: 5px 0;
+  border-radius: 10px;
+  width: 100%;
+  border: 1px solid #24b383;
+  }
+  .popup .description textarea {
+  height: 100px;
+  }
+  /* .popup .dismiss-btn {
+  margin-top: 15px;
+  }
+  .popup .dismiss-btn button {
+  padding: 10px 20px;
+  background: #111;
+  color: #f5f5f5;
+  border: 2px solid #111;
+  font-size: 16px;
+  font-weight: 600;
+  outline: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+  } */
+  /* .popup .dismiss-btn button:hover {
+  color: #111;
+  background: #f5f5f5;
+  } */
+  .popup > div {
+  position: relative;
+  top: 10px;
+  opacity: 0;
+  }
+  .popup.active > div {
+  top: 0px;
+  opacity: 1;
+  }
+  #myProgress {
+  width: 100%;
+  /* background-color: #24b383; */
+  border: 2px solid #24b383;
+  border-radius: 15px;
+  padding: 2px;
+  }
+  #myBar {
+  width: 1%;
+  height: 15px;
+  background-color: #24b383;
+  transition: all 3000ms ease-in-out 500ms;
+  border-radius: 7.5px;
+  }
+  #progress {
+  transition: 3s;
+  }
+  .popup.active .icon {
+  transition: all 300ms ease-in-out 250ms;
+  }
+  .popup.active .title {
+  transition: all 300ms ease-in-out 300ms;
+  }
+  .popup.active .description {
+  transition: all 300ms ease-in-out 350ms;
+  }
+  /* .popup.active .dismiss-btn {
+  transition: all 300ms ease-in-out 400ms;
+  } */
+  #open-popup-btn {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  border: 1px solid #24b383;
+  border-radius: 5px;
+  z-index: 10;
+  }
+  #open-popup-btn h2 {
+  background-color: white;
+  padding: 10px 40px;
+  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+  }
+  #open-popup-btn::before,
+  #open-popup-btn::after {
+  content: "";
+  position: absolute;
+  border-radius: 5px;
+  background: linear-gradient(45deg, #00b7ff, #ea00ff, #00b7ff);
+  background-size: 400%;
+  width: 100%;
+  height: 100%;
+  animation: animate 20s linear infinite;
+  z-index: -1000 !important;
+  }
+  #open-popup-btn::after {
+  filter: blur(10px);
+  }
+  /* @keyframes animate {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 300% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+  } */
+  
+  .fa-times {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  }
+  /* ///////////////////////////////////////////////////////////////////////////////// */
+  /* ///////////////////////////////////////////////////////////////////////////////// */
+  
+  .leftSide {
+  transition: 0.5s;
+  width: 100%;
+  }
+  .leftSide .subject {
+  text-align: center;
+  margin: 20px 0 ;
+  /* height: 2vh; */
+  font-weight: 100;
+  font-size: 50px;
+  }
+  .leftSide .testContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  margin: 10px 0;
+  }
+  .leftSide .testContainer .testCard {
+  position: relative;
+  padding: 25px;
+  margin: 15px;
+  width: 60%;
+  min-width: 320px;
+  transition: 0.3s all ease;
+  background-color: white;
+  border-radius: 50px 20px 20px 20px;
+  overflow: hidden;
+  }
+  .leftSide .testContainer .testCard .round {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: #24b383;
+  font-size: 30px;
+  font-weight: 700;
+  }
+  .leftSide .testContainer .testCard form {
+  display: flex;
+  flex-direction: column;
+  }
+  .leftSide .testContainer .testCard input[type="radio"] {
+  display: none;
+  width: 100%;
+  }
+  .leftSide .testContainer .testCard label {
+  display: flex;
+  transition: 0.5s;
+  bottom: 50%;
+  position: relative;
+  padding: 8px 0;
+  }
+  .leftSide .testContainer .testCard label h4 {
+  margin-right: 20px;
+  }
+  .leftSide .testContainer .testCard input[type="radio"]:checked + label {
+  color: white;
+  font-size: larger;
+  background: linear-gradient(
+    to left,
+    rgb(47, 180, 136) 95%,
+    rgb(15, 126, 98) 5%
+  );
+  padding: 20px 14px;
+  border-radius: 10px;
+  }
+  .leftSide .testContainer .testCard h3 {
+  padding-bottom: 20px;
+  font-size: 25px;
+  font-weight: 700;
+  }
+  .rightSide {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 0;
+  display: flex;
+  align-items: flex-start;
+  height: 100vh;
+  text-align: right;
+  padding-top: 10px;
+  background-color: rgb(207, 207, 207);
+  transition: 0.5s;
+  }
+  .rightSide .fa-bars {
+  font-size: 20px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  }
+  .rightSide h2 {
+  font-size: 76px;
+  text-align: center;
+  background-color: #ec6148;
+  cursor: pointer;
+  }
+  .rightSide h2:hover {
+  background-color: black;
+  color: white;
+  }
+  .rightSide .unresolved {
+  margin: 50px 15px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  }
+  .rightSide .unresolved div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+  color: white;
+  font-weight: 800;
+  border: 2px solid black;
+  border-radius: 50%;
+  background-color: rgb(255, 0, 98);
+  }
+  .btn-reload {
+    padding: 8px 30px;
+    border-radius: 5px;
+    border: none;
+    background: #24b383;
+    color: #fff;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  @media only screen and (max-width: 992px) {
+  .leftSide .testContainer .testCard {
+    width: 80%;
+    min-width: 320px;
+  }
+  }
+  @media only screen and (max-width: 480px) {
+  .leftSide .testContainer .testCard {
+    width: 90%;
+    min-width: 310px;
+  }
+  .leftSide .testContainer .testCard h3{
+    padding-bottom: 10px;
+    font-size: 20px;
+  }
+  
+  }
+  
+  </style>
+  
+  
+  
+  
+  <div class="leftSide">
+    <!-- /////////////////////////////////////////////////////// -->
+    <!-- Start Pop Up -->
+    <!-- /////////////////////////////////////////////////////// -->
+    <div id="container"></div>
+    <div class="popup center">
+      <i class="fas fa-times" id="exit"></i>
+      <div class="icon">
+        <i class="fas fa-exclamation"></i>
+      </div>
+      <div class="title">Natijangiz!</div>
+      <h1 id="progress"></h1>
+      <div class="description">
+        <div id="myProgress">
+          <div id="myBar"></div>
+        </div>
+        <div id="createElement">
+          <table>
+            <tr>
+              <th></th>
+              <th>Sizning javobingiz</th>
+              <th>To'g'ri javob</th>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <input type="hidden" name="" value="<%= user._id %>" id="userID">
+      <!-- <div class="dismiss-btn">
+        <button id="dismiss-popup-btn">Jo'natish</button>
+      </div> -->
+      <button type="button" class="btn-reload" id="newtest">Qaytadan boshlash</button>
+    </div>
+  
+    <!-- /////////////////////////////////////////////////////// -->
+    <!-- End Pop Up -->
+    <!-- /////////////////////////////////////////////////////// -->
+    <h2 class="subject">Testlar</h2>
+    <input type="hidden" id="theme_subject" value="<%= result[0].subject_ID._id  %>">
+    <input type="hidden" id="theme_unit" value="<%= result[0].unit_VARIANTED._id  %>">
+    <input type="hidden" id="theme_variant" value="<%= result[0].variant_VARIANTED._id  %>">
+    <div class="testContainer">
+      <% for (let item of result) { %>
+      <div id="card<%= result.indexOf(item) %>" class="testCard">
+        <div class="round"><%= result.indexOf(item) + 1 %></div>
+        <h3><%= item.question %></h3>
+        <form action="/post" method="POST">
+          <input
+            value="<%= item.options.a %>"
+            type="radio"
+            name="answer"
+            id="option<%= result.indexOf(item) %>1"
+          /><label for="option<%= result.indexOf(item) %>1"
+            ><h4>a)</h4>
+            <%= item.options.a %></label
+          >
+          <input
+            value="<%= item.options.b %>"
+            type="radio"
+            name="answer"
+            id="option<%= result.indexOf(item) %>2"
+          /><label for="option<%= result.indexOf(item) %>2"
+            ><h4>b)</h4>
+            <%= item.options.b %></label
+          >
+          <input
+            value="<%= item.options.c %>"
+            type="radio"
+            name="answer"
+            id="option<%= result.indexOf(item) %>3"
+          /><label for="option<%= result.indexOf(item) %>3"
+            ><h4>c)</h4>
+            <%= item.options.c %></label
+          >
+          <input
+            value="<%= item.options.d %>"
+            type="radio"
+            name="answer"
+            id="option<%= result.indexOf(item) %>4"
+          /><label for="option<%= result.indexOf(item) %>4"
+            ><h4>d)</h4>
+            <%= item.options.d %></label
+          >
+        </form>
+      </div>
+      <% } %>
+      <button id="open-popup-btn">
+        <h2>Natija</h2>
+      </button>
+    </div>
+  </div>
+  <div class="rightSide">
+    <i class="fas fa-bars"></i>
+    <div class="unresolved"></div>
+  </div>
+  
+  
+  
+  
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+  <script>
+  
+  
+  
+  let subjectUrl = location.pathname;
+  let subjectId = subjectUrl.slice(15, subjectUrl.length);
+  
+  axios.get(`/solution_varianted`)
+  .then(add)
+
+  // .then(add);
+  
+               
+  
+      // DOM elementlari
+  const card = document.querySelectorAll(".testCard");
+  const exit = document.getElementById("exit");
+  const check = document.querySelectorAll(".testCard form input");
+  const burger = document.querySelector(".fa-bars");
+  const submit = document.querySelector("#open-popup-btn");
+  const openBtn = document.getElementById("open-popup-btn");
+  const leftSide = document.querySelector(".leftSide");
+  const rightSide = document.querySelector(".rightSide");
+  const container = document.getElementById("container");
+  const newTest = document.getElementById("newtest");
+  // const dismissBtn = document.getElementById("dismiss-popup-btn");
+  
+  // Qiymati keyinchalik ma'lum bo'ladigan ma'lumotlar uchun massivlar
+  let trueArray = [];
+  let answers = [];
+  let sum = [];
+  let yourTrueAnswer = [];
+  
+  newTest.addEventListener('click', () => {
+    location.reload()
+  })
+  // Sidebarda yechilmagan testlarni ko'rsatish
+  for (let i = 0; i < card.length; i++) {
+  const round = document.createElement("div");
+  // round.classList.add(".roundTest");
+  round.innerHTML = i + 1;
+  document.querySelector(".unresolved").appendChild(round);
+  }
+  
+  
+  // Right sidebar
+  let b = 0;
+  burger.addEventListener("click", () => {
+  if (b % 2 == 0) {
+    rightSide.style.width = "250px";
+    leftSide.style.marginRight = "250px";
+  } else {
+    rightSide.style.width = "0";
+    leftSide.style.marginRight = "0";
+  }
+  b++;
+  });
+  
+  
+  // PopUp qalqib chiquvchi oyna ( natijalar oynasi )
+  openBtn.addEventListener("click", function () {
+  container.classList.add("con");
+  document.getElementsByClassName("popup")[0].classList.add("active");
+  });
+  
+  
+  // dismissBtn.addEventListener("click", function () {
+  //   document.getElementsByClassName("popup")[0].classList.remove("active");
+  //   container.classList.remove("con");
+  // });
+  
+  container.addEventListener("click", () => {
+  document.getElementsByClassName("popup")[0].classList.remove("active");
+  container.classList.remove("con");
+  });
+  
+  exit.addEventListener("click", () => {
+  document.getElementsByClassName("popup")[0].classList.remove("active");
+  container.classList.remove("con");
+  });
+  
+  
+  // Test belgilanganda card atrofida yashil to'siq hosil qilish
+  card.forEach((e) => {
+  e.children[2].addEventListener("click", () => {
+    e.style.border = "5px solid #24b383";
+    e.style.backgroundColor = "#f1f1f1";
+    let h = e.children[0];
+    document.querySelectorAll(".unresolved div")[
+      h.childNodes[0].data - 1
+    ].style.backgroundColor = "#24b383";
+  });
+  });
+  
+  
+  // Progress bar ( natijalarni foizlarda ko'rsatish )
+  let i = 0;
+  let width = 0;
+  function move() {
+  if (i == 0 && width == 0) {
+    s();
+  } else {
+    i = 0;
+    width = 0;
+    s();
+  }
+  }
+  function s() {
+  let elem = document.getElementById("myBar");
+  width = (yourTrueAnswer.length / answers.length) * 100;
+  elem.style.width = width + "%";
+  function frame() {
+    if (i >= width) {
+      i = 0;
+      width = 0;
+      clearInterval(id);
+    } else {
+      i++;
+      document.getElementById("progress").innerHTML = i + "%";
+    }
+  }
+  let id = setInterval(frame, 3000 / width);
+  }
+  
+  
+  // Backenddan "axios" orqali ma'lumotlarni olish
+  function add(res) {
+  for (let i = 0; i < res.data.length; i++) {
+    answers.push(res.data[i].answer);
+  }
+  }
+  
+  
+  
+  const theme_subject = document.getElementById("theme_subject").value
+  const theme_unit = document.getElementById("theme_unit").value
+  const theme_variant = document.getElementById("theme_variant").value
+  
+  console.log("theme_subject", theme_subject)
+  console.log("theme_unit", theme_unit)
+  console.log("theme_variant", theme_variant)
+  
+  
+  
+  
+  // Tugma bosilganda sodir bo'ladigan hodisa
+  submit.addEventListener("click", () => {
+   
+  // Barcha testlar belgilanganligini tekshirish
+  function TrueArr(){
+    card.forEach((y) => {
+      const isChecked = [y.children[2]];
+      isChecked.forEach((m) => {
+        let inputCollection = [
+          m.children[0],
+          m.children[2],
+          m.children[4],
+          m.children[6],
+        ];
+        let trueCollection = [
+          inputCollection.some((item) => item.checked == true),
+        ];
+        trueArray.push(trueCollection.some((item) => item == true));
+      });
+    });
+    return trueArray.every((item) => item == true)
+  }
+  // console.log(TrueArr)
+  
+  // Barcha testlar belgilangan bo'lsa natijalarni "sum" massiviga saqlash
+  if (TrueArr() == false) {
+    document.querySelector(".description").innerHTML =
+      "Barcha javoblar belgilanganligiga ishonch hosil qiling";
+    document.querySelector(".title").style.display = "none";
+  } else if (TrueArr() == true) {
+    for (let i = 0; i < check.length; i++) {
+      if (check[i].checked == true) {
+        sum.push(check[i].value);
+      }
+    }
+    checkFunc();
+    move();
+    document.querySelector(".title").style.display = "block";
+  }
+  let trueAnswer = samandar.length;
+  let questionAnswer = answers.length;
+  let user = document.getElementById('userID').value
+  axios({
+        url: "/result/varianted",
+        method: "POST",
+        data: {
+            result: parseInt(trueAnswer) ,
+            totalQuestion: parseInt(questionAnswer),
+            user_ID: user,
+            subject_ID: theme_subject,
+            unit_ID_VARIANTED: theme_unit,
+            variant_ID_VARIANTED: theme_variant,
+        },
+    })
+    .then(res => {
+        console.log(res);
+        // subjectUrl.reload()
+    })
+    .catch((error) => {
+        console.log(error);
+    })
+
+  clearFunc();
+  });
+  
+  function clearFunc() {
+  for (let i = 0; i < card.length; i++) {
+    card[i].style.border = "none";
+  }
+  
+  for (let i = 0; i < check.length; i++) {
+    check[i].checked = false;
+  }
+  
+  trueArray = [];
+  answers = [];
+  sum = [];
+  yourTrueAnswer = [];
+  }
+  
+  let samandar = []
+  
+  // Natijalarni tekshirish
+  function checkFunc() {
+  for (let i = 0; i < answers.length; i++) {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${i + 1}</td><td>${sum[i]}</td><td>${answers[i]}</td>`;
+    document.querySelector("#createElement table").appendChild(tr);
+    if (sum[i] === answers[i]) {
+      yourTrueAnswer.push(sum[i]);
+    }
+  }
+  samandar = [...yourTrueAnswer]
+  }
+  
+  
+
+  document.addEventListener("DOMContentLoaded", function() {
+      renderMathInElement(document.body, {
+        // customised options
+        // • auto-render specific keys, e.g.:
+        delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+            {left: '\\(', right: '\\)', display: false},
+            {left: '\\[', right: '\\]', display: true}
+        ],
+        // • rendering keys, e.g.:
+        throwOnError : false
+      });
+  });
+  
+  </script>

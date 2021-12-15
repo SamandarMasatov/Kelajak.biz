@@ -1,0 +1,222 @@
+<style>
+    .file-upload {
+      background-color: #ffffff;
+      width: 600px;
+      margin: 0 auto;
+      padding: 10px;
+    }
+  
+    .file-upload-btn {
+      width: 100%;
+      margin: 0;
+      color: #fff;
+      background: #30419b;
+      border: none;
+      padding: 10px;
+      border-radius: 4px;
+      border-bottom: 4px solid #30419b;
+      transition: all 0.2s ease;
+      outline: none;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+  
+    .file-upload-btn:hover {
+      background: #30419b;
+      color: #ffffff;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+  
+    .file-upload-btn:active {
+      border: 0;
+      transition: all 0.2s ease;
+    }
+  
+    .file-upload-content {
+      display: none;
+      text-align: center;
+    }
+  
+    .file-upload-input {
+      position: absolute;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      outline: none;
+      opacity: 0;
+      cursor: pointer;
+    }
+  
+    .image-upload-wrap {
+      margin-top: 20px;
+      border: 4px dashed #30419b;
+      position: relative;
+    }
+  
+    .image-dropping,
+    .image-upload-wrap:hover {
+      background-color: #30419b;
+    }
+  
+    .image-title-wrap {
+      padding: 0 15px 15px 15px;
+      color: #222;
+    }
+  
+    .drag-text {
+      text-align: center;
+    }
+  
+    .drag-text h3 {
+      font-weight: 100;
+      text-transform: uppercase;
+      color: #000;
+      padding: 60px 0;
+    }
+  
+    .file-upload-image {
+      max-height: 300px;
+      max-width: 400px;
+      margin: auto;
+      padding: 20px;
+    }
+  
+    .remove-image {
+      width: 400px;
+      margin: 0;
+      color: rgb(0, 0, 0);
+      background: #30419b;
+      border: none;
+      padding: 10px;
+      border-radius: 4px;
+      border-bottom: 4px solid #30419b;
+      transition: all 0.2s ease;
+      outline: none;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+  
+    .remove-image:hover {
+      background: #30419b;
+      color: #ffffff;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+  
+    .remove-image:active {
+      border: 0;
+      transition: all 0.2s ease;
+    }
+  </style>
+  
+<div class="col-md-12">
+    <div class="card m-b-30">
+      <div class="card-body">
+        <h4 class="mt-2 mb-4">Audio malumotlarni tahrirlash</h4>
+        <ul class="nav nav-pills nav-justified" role="tablist">
+          <li class="nav-item waves-effect waves-light">
+            <a class="nav-link active" data-toggle="tab" href="#home-1" role="tab">
+              <span class="d-none d-md-block font-14">Audio malumotlarni tahrirlash</span>
+              <span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
+            </a>
+          </li>
+          <li class="nav-item waves-effect waves-light">
+            <a class="nav-link" data-toggle="tab" href="#profile-1" role="tab">
+              <span class="d-none d-md-block font-14">Yangi audio yuklash</span>
+              <span class="d-block d-md-none"><i class="mdi mdi-account h5"></i></span>
+            </a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active p-3" id="home-1" role="tabpanel">
+           
+
+
+            <form method="POST"  action="<%=`/audio/info/${result._id}?_method=PUT`%>" class="col-md-12">
+                <div class="mb-3">
+                    <label>Video nomi</label>
+                    <input type="text" class="form-control" value="<%= result.title %>" name="title"/>
+                </div>
+                <div class="mt-3">
+                    <label>Video Davomiyligi vaqti</label>
+                    <input type="text" class="form-control" value="<%= result.audio_time %>" name="audio_time"/>
+                </div>
+                <div class="mt-3">
+                    <label >Video taglar</label>
+                    <input type="text" class="form-control" value="<%= result.tag %>" name="tag"/>
+                </div>
+                <div class="mt-3">
+                    <label >Video kurs haqida</label>
+                    <textarea  class="form-control" name="description"  cols="30" rows="10"><%= result.description %></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary col-md-5 mt-3">Saqlash</button>
+            </form>
+          </div>
+
+
+
+          <div class="tab-pane p-3 text-center" id="profile-1" role="tabpanel">
+                <div class="col-md-12 mt-3" style="display: flex; flex-direction: column; justify-content: center; align-items: center;" >
+                    <audio class="col-md-8" controls src="/uploads/video/<%= result.audio %>" controlsList="nodownload"></audio>
+                    <form method="POST"  action="<%=`/audio/audio/${result._id}?_method=PUT`%>" class="col-md-6"  ref="uploadForm" encType="multipart/form-data">
+                        <div class="input-group mb-3 pb-3 mt-2">
+                            <div class="file-upload">
+                            <div class="image-upload-wrap">
+                                <input name="audio" class="file-upload-input" type="file" onchange="readURL(this);" accept="audio/*" multiple />
+                                <div class="drag-text">
+                                <h3>Audio tanlang</h3>
+                                </div>
+                            </div>
+                            <div class="file-upload-content">
+                                <div class="image-title-wrap">
+                                <button type="button" onclick="removeUpload()" class="remove-image" >
+                                    Remove <span class="image-title">Uploaded Image</span>
+                                </button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary col-md-5 mt-3">Saqlash</button>
+                    </form>
+                  </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <script>
+        function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $(".image-upload-wrap").hide();
+
+        $(".file-upload-image").attr("src", e.target.result);
+        $(".file-upload-content").show();
+
+        $(".image-title").html(input.files[0].name);
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    } else {
+      removeUpload();
+    }
+  }
+
+  function removeUpload() {
+    $(".file-upload-input").replaceWith($(".file-upload-input").clone());
+    $(".file-upload-content").hide();
+    $(".image-upload-wrap").show();
+  }
+  $(".image-upload-wrap").bind("dragover", function () {
+    $(".image-upload-wrap").addClass("image-dropping");
+  });
+  $(".image-upload-wrap").bind("dragleave", function () {
+    $(".image-upload-wrap").removeClass("image-dropping");
+  });
+  </script>

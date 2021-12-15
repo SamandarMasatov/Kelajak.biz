@@ -1,0 +1,61 @@
+<div class="row">
+    <div class="col-12">
+        <div style="
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+        ">
+            <h4 class="m-3" style="font-weight: 700;"> Sotilgan kurslar ro'yxati </h4>
+        </div>
+
+        <div class="card m-b-30">
+            <div class="card-body" style="overflow-x: scroll">
+                <table id="datatable" class="table table-bordered text-center"
+                    style="border-collapse: collapse; border-spacing: 0; width: 100%">
+                    <thead>
+                        <tr>
+                            <th>Ism-familiya </th>
+                            <th>Kurs nomi</th>
+                            <th>Kurs narxi</th>
+                            <th>Sotilgan sana</th>
+                            <th style="width: 15%">Sozlamalar</th>
+                        </tr>
+                    </thead>
+
+                    <tbody> 
+                        <% for(let item of result) {%>
+                            <tr>
+                                <td>
+                                    <%= item.user_ID.name%>
+                                </td>
+                                <td>
+                                    <%= item.course_ID.title %>
+                                </td>
+                                <td>
+                                    <%= item.course_ID.price%> so'm
+                                </td>
+                                <td>
+                                    <%= moment(item.date).format("DD-MM-YYYY - hh:mm:ss") %>
+                                </td>
+                                <td style=" display: flex; flex-direction: row; justify-content: space-around; align-items: center;">
+                                    
+                                    <form method="POST" class="hidden-r" action="<%=`/addCourse/${item._id}?_method=DELETE`%>">
+                                        <button type="submit" class="btn btn-danger">
+                                          <i class="fa fa-trash"></i>
+                                        </button>
+                                      </form>
+
+                                </td>
+
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <!-- end col -->
+</div>
+

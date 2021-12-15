@@ -1,0 +1,182 @@
+<div class="page-title-box">
+    <div class="row align-items-center">
+        <div class="col-sm-6">
+            <h4 class="page-title">Universitetlar</h4>
+        </div>
+        <div class="col-sm-6">
+            <ol class="">
+                <li class="breadcrumb-item">
+                    <button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal"
+                        data-target=".bs-example-modal-lg">Yaratish</button>
+                </li> 
+            </ol>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card m-b-30">
+            <div class="card-body">
+
+                <table 
+                    class="table table-striped table-bordered dt-responsive nowrap text-center"
+                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Davlatlar</th>
+                            <th>Universitet</th>
+                            <th>Tavsif</th>
+                            <th>Video</th>
+                            <th style="width: 10%;">Sozlama</th>
+                        </tr>
+                    </thead>
+                    <tbody class="select_group">
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- -----------------   CREATE   -----------------  -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0" id="myLargeModalLabel">
+                    Yaratish
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+
+                <div class="form-group row">
+                    <label for="example-text-input-lg" class="col-sm-6 col-form-label">Davlatlarni tanlash</label>
+                    <div class="col-sm-12">
+                        <select class="form-control pl-1" value="" id="davlatlar">
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3 ">
+                    <label for="">Universitet nomi </label>
+                    <input type="text" name="name" id="name" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="">Universitet haqida </label>
+                    <textarea name="description" id="description" class="form-control" rows="5"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="">Universitet videosi </label>
+                    <input type="file" id="video" class="form-control" />
+                </div>
+
+
+                <button type="button" id="sendData" class="btn btn-outline-primary">Saqlash</button>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/axios.min.js"></script>
+<script>
+
+    axios.get("/davlat/all")
+        .then(async (res) => {
+            const result = res.data
+            let select = $("#davlatlar");
+            await select.html("");
+            select.append(`<option value="" style="font-weight: bold">Davlatlar tanlash</option> `);
+            result.forEach((item, index, value) => {
+                select.append(
+                    `
+                    <option value="${item._id}" style="font-weight: bold">${item.name}</option>
+                    `
+                );
+            });
+        });
+
+    const sendDatas = document.getElementById("sendData")
+    sendDatas.addEventListener("click", () => {
+        let formData = new FormData();
+
+        const name = document.getElementById("name").value
+        const description = document.getElementById("description").value
+        const davlatlar = document.getElementById("davlatlar").value
+        const video = document.getElementById("video").files[0];
+
+        formData.append("name", name);
+        formData.append("description", description);
+        formData.append("video", video);
+        formData.append("country", davlatlar);
+
+
+        axios({
+            url: "/universitet/add",
+            method: "POST",
+            data: formData,
+            headers: { 'Content-Type': 'multipart/form-data' }
+        })
+            .then(res => {
+                location.reload()
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    })
+
+
+    axios.get("/universitet/all")
+        .then(async (res) => {
+            const result = res.data
+            let select = $(".select_group");
+            await select.html("");
+            result.forEach((item) => {
+                select.append(
+                    `<tr>
+                        <td>${item.country.name}</td>®´
+                        <td>${item.name}</td>
+                        <td>${item.description}</td>
+                        <td>
+                            <a class="popup-vimeo mo-mb-2" href="/uploads/${item.video}">
+                                <i class="fab fa-youtube font-30 text-danger"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a onclick="deleted('${item._id}')"  type="button"  class="btn btn-outline-danger text-danger"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    `
+                );
+            });
+        });
+
+
+    function deleted(delete_id) {
+        axios.delete(`/universitet/${delete_id}`)
+            .then(res => {
+                location.reload()
+            })
+    }
+
+
+</script>
